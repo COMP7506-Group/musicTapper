@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:nestedScrollingEnabled="false"
+    android:scaleType="fitXY"
+    android:background="@drawable/background5"
+    android:id="@+id/rv">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@+id/p1"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/startButton">
+
+        <Button
+            android:text="Pause"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/pause" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="Run"
+        android:layout_marginLeft="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/target"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="Target"
+        android:layout_marginLeft="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/startButton"
+        android:layout_alignBottom="@+id/startButton" />
+
+    <ImageButton
+        android:id="@+id/p2"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_marginLeft="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/p1"
+        android:background="@drawable/buttons" />
+
+    <ImageButton
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:id="@+id/p3"
+        android:layout_marginLeft="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/p2"
+        android:layout_alignTop="@+id/p2"
+        android:background="@drawable/buttons" />
+
+    <ImageButton
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:layout_marginLeft="2dp"
+        android:id="@+id/button3"
+        android:layout_alignTop="@+id/p3"
+        android:layout_toEndOf="@+id/p3"
+        android:background="@drawable/buttons"
+        android:clickable="false" />
+
+    <ImageButton
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:text="1"
+        android:id="@+id/p1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="2dp"
+        android:layout_alignTop="@+id/p2"
+        android:layout_alignParentStart="false"
+        android:background="@drawable/buttons"
+        android:visibility="visible" />
+
+
+</RelativeLayout>
