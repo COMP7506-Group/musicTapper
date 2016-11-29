@@ -8,6 +8,7 @@
 
 #import "ListViewController.h"
 #import "PlayViewController.h"
+#import "TestViewController.h"
 
 @interface ListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -38,7 +39,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    PlayViewController * controller = [[PlayViewController alloc] init];
+    TestViewController * controller = [[TestViewController alloc] init];
     [self presentViewController:controller animated:YES completion:NULL];
 }
 

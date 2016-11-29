@@ -8,6 +8,7 @@
 
 #import "PlayViewController.h"
 #import "NoteView.h"
+#import "Const.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface PlayViewController ()<AVAudioPlayerDelegate>
@@ -24,19 +25,22 @@
 @property (nonatomic) int noteFlag;
 @property (nonatomic) int tempo;
 @property (nonatomic) double pre;
+@property (nonatomic) double offset;
+@property (nonatomic) double dropTime;
 
 @property (nonatomic, strong) UILabel * nameLable;
 @property (nonatomic, strong) UILabel * timeLable;
 
 @end
 
-const double offset = 0.2;
-const double dropTime = 1;
 
 @implementation PlayViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.offset = 0.2;
+    self.dropTime = 1;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -45,7 +49,7 @@ const double dropTime = 1;
     NSDictionary * info = [dic objectForKey:@"info"];
     self.name = [info objectForKey:@"name"];
     self.tempo = [(NSNumber *)[info objectForKey:@"tempo"] intValue];
-    self.pre = [(NSNumber *)[info objectForKey:@"pre"] doubleValue];
+    self.pre = [(NSNumber *)[info objectForKey:@"start"] doubleValue];
     self.notes = [dic objectForKey:@"nodes"];
     self.noteFlag = 0;
     
@@ -198,21 +202,21 @@ const double dropTime = 1;
     NSDictionary * nodeData = self.notes[_noteFlag];
     double timeBegin = [(NSNumber *)[nodeData objectForKey:@"timeBegin"] doubleValue] * 60 / self.tempo + self.pre;
     int track = [(NSNumber *)[nodeData objectForKey:@"track"] intValue];
-    if ((timeBegin - dropTime - offset) <= self.myBackMusic.currentTime) {
+    if ((timeBegin - _dropTime - _offset) <= self.myBackMusic.currentTime) {
         int count = 0;
         while (track > 0) {
             if (track % 2) {
                 NoteView * nodeView = [[NoteView alloc] init];
-                double diff = (self.myBackMusic.currentTime - (timeBegin - dropTime - offset));
+                double diff = (self.myBackMusic.currentTime - (timeBegin - _dropTime - _offset));
                 nodeView.frame = CGRectMake(self.view.frame.size.width / 2 - 2 * 60 + count * 60 + 10,
-                                            -30 + 530 * diff / dropTime,
+                                            -30 + 530 * diff / _dropTime,
                                             40,
                                             20);
                 nodeView.backgroundColor = [UIColor redColor];
                 nodeView.layer.cornerRadius = 5;
                 [self.view addSubview:nodeView];
                 
-                [UIView animateWithDuration:dropTime - diff
+                [UIView animateWithDuration:_dropTime - diff
                                       delay:0
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:^{
