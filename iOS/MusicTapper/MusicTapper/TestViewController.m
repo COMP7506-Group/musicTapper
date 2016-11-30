@@ -34,12 +34,6 @@
 
 @end
 
-#define OFFSET          0.2
-#define DROP_TIME       1.0
-#define MISS_TIME       0.5
-#define GOOD_TIME       0.3
-#define PERFECT_TIME    0.15
-
 #define LAYOUT_R    230
 #define NOTE_SIZE   70
 
@@ -187,6 +181,14 @@
     return CGRectMake(x, y, size, size);
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark - AVAudioPlayerDelegate
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
@@ -322,6 +324,16 @@
 }
 
 - (void)back {
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val = UIInterfaceOrientationPortrait;
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
+    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 

@@ -39,8 +39,25 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TestViewController * controller = [[TestViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:NULL];
+    if (indexPath.row > 10) {
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+            SEL selector = NSSelectorFromString(@"setOrientation:");
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:[UIDevice currentDevice]];
+            int val = UIInterfaceOrientationLandscapeRight;
+            [invocation setArgument:&val atIndex:2];
+            [invocation invoke];
+        }
+        
+        TestViewController * controller = [[TestViewController alloc] init];
+        [self presentViewController:controller animated:YES completion:NULL];
+    }
+    else {
+        PlayViewController * controller = [[PlayViewController alloc] init];
+        [self presentViewController:controller animated:YES completion:NULL];
+    }
+    
 }
 
 
@@ -56,7 +73,7 @@
         cell = [[UITableViewCell alloc] init];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"This is the %ldth song", (long)indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"This is the %ldth song", (long)indexPath.row + 1];
     
     return cell;
 }

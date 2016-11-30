@@ -22,25 +22,24 @@
 @property (nonatomic, strong) NSArray * notes;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSMutableArray * sounds;
+@property (nonatomic, strong) NSArray * tracks;
 @property (nonatomic) int noteFlag;
 @property (nonatomic) int tempo;
 @property (nonatomic) double pre;
-@property (nonatomic) double offset;
-@property (nonatomic) double dropTime;
+@property (nonatomic) int combo;
 
 @property (nonatomic, strong) UILabel * nameLable;
 @property (nonatomic, strong) UILabel * timeLable;
+@property (nonatomic, strong) UILabel * comboLabel;
 
 @end
 
+#define BUTTON_TAG  1000
 
 @implementation PlayViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.offset = 0.2;
-    self.dropTime = 1;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -60,11 +59,21 @@
             button.layer.borderWidth = 3.0;
             button.layer.borderColor = [UIColor blueColor].CGColor;
             button.frame = CGRectMake((self.view.frame.size.width - 4 * 60)/2 + i * 60, 495, 60, 50);
-            [button addTarget:self action:@selector(goodBtnClicked) forControlEvents:UIControlEventTouchDown];
+            button.tag = BUTTON_TAG + i;
+            [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchDown];
             [temp addObject:button];
             [self.view addSubview:button];
         }
         self.buttons = [NSArray arrayWithArray:temp];
+    }
+    
+    if (!_tracks) {
+        NSMutableArray * tracks = [[NSMutableArray alloc] init];
+        for (int i = 0; i < 9; i++) {
+            NSMutableArray * notes = [[NSMutableArray alloc] init];
+            [tracks addObject:notes];
+        }
+        self.tracks = [[NSArray alloc] initWithArray:tracks];
     }
     
     if (!_pauseBtn) {
@@ -74,6 +83,14 @@
         [pauseBtn addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:pauseBtn];
         self.pauseBtn = pauseBtn;
+    }
+    
+    if (!_timeLable) {
+        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 50,
+                                                                        40,
+                                                                        0, 0)];
+        [self.view addSubview:timeLable];
+        self.timeLable = timeLable;
     }
     
     if (!_nameLable) {
@@ -89,10 +106,12 @@
         self.nameLable = nameLable;
     }
     
-    if (!_timeLable) {
-        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(250, 40, 0, 0)];
-        [self.view addSubview:timeLable];
-        self.timeLable = timeLable;
+    if (!_comboLabel) {
+        UILabel * comboLabel = [[UILabel alloc] init];
+        comboLabel.font = [UIFont systemFontOfSize:18];
+        comboLabel.alpha = 0;
+        [self.view addSubview:comboLabel];
+        self.comboLabel = comboLabel;
     }
     
     if (!_displayLink) {
@@ -137,6 +156,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [_displayLink invalidate];
     [_myBackMusic stop];
+    
+    for (AVAudioPlayer * player in _sounds) {
+        player.delegate = nil;
+        [_sounds removeObject:player];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,8 +181,40 @@
 
 #pragma mark - Action methods
 
-- (void)goodBtnClicked {
-    AVAudioPlayer * player = [[AVAudioPlayer alloc] initWithContentsOfURL:_goodSoundPath error:nil];
+- (void)buttonClicked:(id)sender {
+    NSTimeInterval clickTime = self.myBackMusic.currentTime;
+    
+    UIButton * button = (UIButton *)sender;
+    int track = (int) (button.tag - BUTTON_TAG);
+    
+    NSMutableArray * notes = [_tracks objectAtIndex:track];
+    
+    NoteView * targetView;
+    for (NoteView * noteView in notes) {
+        if (noteView.timePoint - clickTime < MISS_TIME) {
+            if (!targetView || noteView.timePoint < targetView.timePoint) {
+                targetView = noteView;
+            }
+        }
+    }
+    
+    if (targetView) {
+        targetView.isTapped = YES;
+        
+        NSLog(@"%f", clickTime - targetView.timePoint);
+        
+        [self playSoundEffectIsGood:ABS(targetView.timePoint - clickTime) <= GOOD_TIME];
+        
+        [self showTapResult:ABS(targetView.timePoint - clickTime)];
+        
+        [targetView removeFromSuperview];
+        [notes removeObject:targetView];
+    }
+}
+
+- (void)playSoundEffectIsGood:(BOOL)isGood {
+    AVAudioPlayer * player = [[AVAudioPlayer alloc] initWithContentsOfURL:isGood ? _goodSoundPath : _badSoundPath
+                                                                    error:nil];
     player.delegate = self;
     [self.sounds addObject:player];
     
@@ -168,15 +224,83 @@
     [player play];
 }
 
-- (void)badBtnClicked {
-    AVAudioPlayer * player = [[AVAudioPlayer alloc] initWithContentsOfURL:_badSoundPath error:nil];
-    player.delegate = self;
-    [self.sounds addObject:player];
+- (void)showMiss {
+    _combo = 0;
+    [self updateCombo];
     
-    [player prepareToPlay];
-    [player setVolume:1];
-    player.numberOfLoops = 0;
-    [player play];
+    UILabel * label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:18];
+    label.text = @"Miss!";
+    [label sizeToFit];
+    label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
+                             180,
+                             label.frame.size.width,
+                             label.frame.size.height);
+    
+    [self.view addSubview:label];
+    
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         label.alpha = 0;
+                     }
+                     completion:^(BOOL finished) {
+                         [label removeFromSuperview];
+                     }];
+}
+
+- (void)showTapResult:(NSTimeInterval)diff {
+    if (diff > GOOD_TIME) {
+        _combo = 0;
+    }
+    else {
+        _combo ++;
+    }
+    [self updateCombo];
+    
+    UILabel * label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:18];
+    label.text = (diff > GOOD_TIME) ? @"Bad!" : (diff > PERFECT_TIME ? @"Good!" : @"Perfect!");
+    [label sizeToFit];
+    label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
+                             180,
+                             label.frame.size.width,
+                             label.frame.size.height);
+    
+    [self.view addSubview:label];
+    
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         label.alpha = 0;
+                     }
+                     completion:^(BOOL finished) {
+                         [label removeFromSuperview];
+                     }];
+}
+
+- (void)updateCombo {
+    if (_combo <= 1) {
+        _comboLabel.alpha = 0;
+    }
+    else {
+        _comboLabel.text = [NSString stringWithFormat:@"Combo %d!", _combo];
+        [_comboLabel sizeToFit];
+        _comboLabel.frame = CGRectMake((self.view.frame.size.width - _comboLabel.frame.size.width) / 2,
+                                       180 - _comboLabel.frame.size.height - 10,
+                                       _comboLabel.frame.size.width,
+                                       _comboLabel.frame.size.height);
+        _comboLabel.alpha = 1;
+        
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             CGRect frame = _comboLabel.frame;
+                             frame.origin.y += 10;
+                             _comboLabel.frame = frame;
+                         }];
+    }
 }
 
 - (void)back {
@@ -202,31 +326,41 @@
     NSDictionary * nodeData = self.notes[_noteFlag];
     double timeBegin = [(NSNumber *)[nodeData objectForKey:@"timeBegin"] doubleValue] * 60 / self.tempo + self.pre;
     int track = [(NSNumber *)[nodeData objectForKey:@"track"] intValue];
-    if ((timeBegin - _dropTime - _offset) <= self.myBackMusic.currentTime) {
+    if ((timeBegin - DROP_TIME - OFFSET) <= self.myBackMusic.currentTime) {
         int count = 0;
         while (track > 0) {
             if (track % 2) {
-                NoteView * nodeView = [[NoteView alloc] init];
-                double diff = (self.myBackMusic.currentTime - (timeBegin - _dropTime - _offset));
-                nodeView.frame = CGRectMake(self.view.frame.size.width / 2 - 2 * 60 + count * 60 + 10,
-                                            -30 + 530 * diff / _dropTime,
+                NoteView * noteView = [[NoteView alloc] init];
+                double diff = (self.myBackMusic.currentTime - (timeBegin - DROP_TIME - OFFSET));
+                noteView.frame = CGRectMake(self.view.frame.size.width / 2 - 2 * 60 + count * 60 + 10,
+                                            -30 + 530 * diff / DROP_TIME,
                                             40,
                                             20);
-                nodeView.backgroundColor = [UIColor redColor];
-                nodeView.layer.cornerRadius = 5;
-                [self.view addSubview:nodeView];
+                noteView.backgroundColor = [UIColor redColor];
+                noteView.layer.cornerRadius = 5;
+                noteView.track = count;
+                noteView.timePoint = (NSTimeInterval)timeBegin;
+                noteView.isTapped = NO;
+                NSMutableArray * notes = [_tracks objectAtIndex:count];
+                [notes addObject:noteView];
                 
-                [UIView animateWithDuration:_dropTime - diff
+                [self.view addSubview:noteView];
+                
+                [UIView animateWithDuration:DROP_TIME - diff + MISS_TIME
                                       delay:0
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:^{
-                                     CGRect frame = nodeView.frame;
-                                     frame.origin.y = 500;
-                                     [nodeView setFrame:frame];
+                                     CGRect frame = noteView.frame;
+                                     frame.origin.y = 500 + 530 * (MISS_TIME / DROP_TIME);
+                                     [noteView setFrame:frame];
                                  }
                                  completion:^(BOOL finished) {
-                                     [nodeView removeFromSuperview];
-//                                     [self goodBtnClicked];
+                                     if (!noteView.isTapped) {
+                                         [self showMiss];
+                                         NSMutableArray * notes = [_tracks objectAtIndex:noteView.track];
+                                         [notes removeObject:noteView];
+                                         [noteView removeFromSuperview];
+                                     }
                                  }];
             }
             track = track / 2;
