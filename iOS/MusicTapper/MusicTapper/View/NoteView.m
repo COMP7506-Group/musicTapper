@@ -8,7 +8,26 @@
 
 #import "NoteView.h"
 
+@interface NoteView()
+
+
+@end
+
+
 @implementation NoteView
+
+@synthesize track;
+@synthesize timePoint;
+@synthesize isTapped;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.userInteractionEnabled = NO;
+    }
+    
+    return self;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

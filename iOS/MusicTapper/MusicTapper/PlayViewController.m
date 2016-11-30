@@ -76,12 +76,6 @@
         self.pauseBtn = pauseBtn;
     }
     
-    if (!_timeLable) {
-        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(200, 30, 0, 0)];
-        [self.view addSubview:self.timeLable];
-        self.timeLable = timeLable;
-    }
-    
     if (!_nameLable) {
         UILabel * nameLable = [[UILabel alloc] init];
         nameLable.text = self.name;
@@ -91,8 +85,14 @@
         frame.origin.x = (self.view.frame.size.width - frame.size.width) / 2;
         frame.origin.y = 20;
         nameLable.frame = frame;
-        [self.view addSubview:self.nameLable];
+        [self.view addSubview:nameLable];
         self.nameLable = nameLable;
+    }
+    
+    if (!_timeLable) {
+        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(250, 40, 0, 0)];
+        [self.view addSubview:timeLable];
+        self.timeLable = timeLable;
     }
     
     if (!_displayLink) {

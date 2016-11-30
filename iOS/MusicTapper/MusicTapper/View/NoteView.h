@@ -10,4 +10,8 @@
 
 @interface NoteView : UIView
 
+@property (nonatomic) int track;
+@property (nonatomic) NSTimeInterval timePoint;
+@property (nonatomic) BOOL isTapped;
+
 @end
