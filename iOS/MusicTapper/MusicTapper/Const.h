@@ -9,6 +9,7 @@
 #ifndef Const_h
 #define Const_h
 
+#define SYSYTEM_OFFSET  0.14
 #define DROP_TIME       1.0
 #define MISS_TIME       0.3
 #define GOOD_TIME       0.15

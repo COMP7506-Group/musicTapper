@@ -83,7 +83,7 @@
     
     if (!_buttons) {
         NSMutableArray * temp = [[NSMutableArray alloc] init];
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 4; i++) {
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.layer.borderWidth = 3.0;
             button.layer.borderColor = [UIColor blueColor].CGColor;
@@ -91,7 +91,9 @@
             button.frame = [self frameWithNoteNum:i progress:1];
             button.tag = BUTTON_TAG + i;
             
-            [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchDown];
+            if (_mod != TypePlayModAuto) {
+                [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchDown];
+            }
             [temp addObject:button];
             [self.view addSubview:button];
         }
@@ -100,7 +102,7 @@
     
     if (!_tracks) {
         NSMutableArray * tracks = [[NSMutableArray alloc] init];
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 4; i++) {
             NSMutableArray * notes = [[NSMutableArray alloc] init];
             [tracks addObject:notes];
         }
@@ -209,8 +211,9 @@
 
 - (CGRect)frameWithNoteNum:(int)i progress:(float)p {
     float size = 10  * SCALE + (NOTE_SIZE - 10 * SCALE) * p;
-    float x = self.view.frame.size.width / 2 - LAYOUT_R * cos(i * M_PI / 8) * p - size / 2;
-    float y = 100 * SCALE + LAYOUT_R * sin(i * M_PI / 8) * p - size / 2;
+    float angle = (1 + 2 * i) * M_PI / 8;
+    float x = self.view.frame.size.width / 2 - LAYOUT_R * cos(angle) * p - size / 2;
+    float y = 100 * SCALE + LAYOUT_R * sin(angle) * p - size / 2;
     return CGRectMake(x, y, size, size);
 }
 
@@ -262,7 +265,7 @@
 #pragma mark - Action methods
 
 - (void)buttonClicked:(id)sender {
-    NSTimeInterval clickTime = self.myBackMusic.currentTime;
+    NSTimeInterval clickTime = self.myBackMusic.currentTime + SYSYTEM_OFFSET;
     
     UIButton * button = (UIButton *)sender;
     int track = (int) (button.tag - BUTTON_TAG);
@@ -420,6 +423,15 @@
     
     
     NSDictionary * nodeData = self.notes[_noteFlag];
+    int type = [(NSNumber *)[nodeData objectForKey:@"type"] intValue];
+    if (_mod == TypePlayModEasy && type == 2) {
+        _noteFlag++;
+        return;
+    }
+    
+    BOOL isAuto = _mod == TypePlayModAuto;
+    double missTime = isAuto ? 0 : MISS_TIME;
+    
     double timeBegin = [(NSNumber *)[nodeData objectForKey:@"timeBegin"] doubleValue] * 60 / self.tempo + self.pre;
     BOOL isLeft = ([(NSNumber *)[nodeData objectForKey:@"timeBegin"] intValue] / 4) % 2 == 0;
     int track = [(NSNumber *)[nodeData objectForKey:@"track"] intValue];
@@ -442,24 +454,30 @@
                 [self.view addSubview:noteView];
                 
                 CABasicAnimation * cornerAnimation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
-                cornerAnimation.duration = DROP_TIME - diff + MISS_TIME;
+                cornerAnimation.duration = DROP_TIME - diff + missTime - SYSYTEM_OFFSET;
                 cornerAnimation.fromValue = @([self frameWithNoteNum:count progress:diff/DROP_TIME].size.width / 2);
-                cornerAnimation.toValue = @([self frameWithNoteNum:count progress:1 + MISS_TIME / DROP_TIME].size.width / 2);
+                cornerAnimation.toValue = @([self frameWithNoteNum:count progress:1 + missTime / DROP_TIME].size.width / 2);
                 cornerAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
                 cornerAnimation.removedOnCompletion = NO;
                 cornerAnimation.fillMode = kCAFillModeForwards;
                 [noteView.layer addAnimation:cornerAnimation forKey:@"cornerRadius"];
                 
-                [UIView animateWithDuration:DROP_TIME - diff + MISS_TIME
+                [UIView animateWithDuration:DROP_TIME - diff + missTime - SYSYTEM_OFFSET
                                       delay:0
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:^{
-                                     noteView.frame = [self frameWithNoteNum:count progress:1 + MISS_TIME / DROP_TIME];
+                                     noteView.frame = [self frameWithNoteNum:count progress:1 + missTime / DROP_TIME];
                                      noteView.layer.cornerRadius = noteView.frame.size.width / 2;
                                  }
                                  completion:^(BOOL finished) {
                                      if (!noteView.isTapped) {
-                                         [self showMiss];
+                                         if (isAuto) {
+                                             [self buttonClicked:[_buttons objectAtIndex:noteView.track]];
+                                         }
+                                         else {
+                                             [self showMiss];
+                                         }
+                                         
                                          NSMutableArray * notes = [_tracks objectAtIndex:noteView.track];
                                          [notes removeObject:noteView];
                                          [noteView removeFromSuperview];
@@ -469,7 +487,7 @@
             track = track / 2;
             count++;
         }
-        self.noteFlag++;
+        _noteFlag++;
     }
 }
 
