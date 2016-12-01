@@ -17,6 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSLog(@"scale = %f, %f",[UIScreen mainScreen].scale, [UIScreen mainScreen].nativeScale);
+    
     return YES;
 }
 

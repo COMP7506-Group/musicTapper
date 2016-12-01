@@ -36,6 +36,9 @@
 
 #define BUTTON_TAG  1000
 
+#define TRACK_WIDTH 80 * SCALE
+#define TRACK_HEIGHT 500 * SCALE
+
 @implementation PlayViewController
 
 - (void)viewDidLoad {
@@ -58,7 +61,10 @@
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.layer.borderWidth = 3.0;
             button.layer.borderColor = [UIColor blueColor].CGColor;
-            button.frame = CGRectMake((self.view.frame.size.width - 4 * 60)/2 + i * 60, 495, 60, 50);
+            button.frame = CGRectMake((self.view.frame.size.width - 4 * TRACK_WIDTH)/2 + i * TRACK_WIDTH,
+                                      TRACK_HEIGHT,
+                                      TRACK_WIDTH,
+                                      90 * SCALE);
             button.tag = BUTTON_TAG + i;
             [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchDown];
             [temp addObject:button];
@@ -78,7 +84,7 @@
     
     if (!_pauseBtn) {
         UIButton * pauseBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        pauseBtn.frame = CGRectMake(10, 10, 50, 30);
+        pauseBtn.frame = CGRectMake(10 * SCALE, 10 * SCALE, 50 * SCALE, 30 * SCALE);
         [pauseBtn setTitle:@"Back" forState:UIControlStateNormal];
         [pauseBtn addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:pauseBtn];
@@ -86,8 +92,8 @@
     }
     
     if (!_timeLable) {
-        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 50,
-                                                                        40,
+        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 50 * SCALE,
+                                                                        40 * SCALE,
                                                                         0, 0)];
         [self.view addSubview:timeLable];
         self.timeLable = timeLable;
@@ -100,7 +106,7 @@
         [nameLable sizeToFit];
         CGRect frame = nameLable.frame;
         frame.origin.x = (self.view.frame.size.width - frame.size.width) / 2;
-        frame.origin.y = 20;
+        frame.origin.y = 20 * SCALE;
         nameLable.frame = frame;
         [self.view addSubview:nameLable];
         self.nameLable = nameLable;
@@ -170,6 +176,10 @@
     }
 }
 
+-(BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 #pragma mark - AVAudioPlayerDelegate
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
@@ -233,7 +243,7 @@
     label.text = @"Miss!";
     [label sizeToFit];
     label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
-                             180,
+                             180 * SCALE,
                              label.frame.size.width,
                              label.frame.size.height);
     
@@ -264,7 +274,7 @@
     label.text = (diff > GOOD_TIME) ? @"Bad!" : (diff > PERFECT_TIME ? @"Good!" : @"Perfect!");
     [label sizeToFit];
     label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
-                             180,
+                             180 * SCALE,
                              label.frame.size.width,
                              label.frame.size.height);
     
@@ -289,7 +299,7 @@
         _comboLabel.text = [NSString stringWithFormat:@"Combo %d!", _combo];
         [_comboLabel sizeToFit];
         _comboLabel.frame = CGRectMake((self.view.frame.size.width - _comboLabel.frame.size.width) / 2,
-                                       180 - _comboLabel.frame.size.height - 10,
+                                       180 * SCALE - _comboLabel.frame.size.height - 10 * SCALE,
                                        _comboLabel.frame.size.width,
                                        _comboLabel.frame.size.height);
         _comboLabel.alpha = 1;
@@ -297,7 +307,7 @@
         [UIView animateWithDuration:0.3
                          animations:^{
                              CGRect frame = _comboLabel.frame;
-                             frame.origin.y += 10;
+                             frame.origin.y += 10 * SCALE;
                              _comboLabel.frame = frame;
                          }];
     }
@@ -332,10 +342,10 @@
             if (track % 2) {
                 NoteView * noteView = [[NoteView alloc] init];
                 double diff = (self.myBackMusic.currentTime - (timeBegin - DROP_TIME - OFFSET));
-                noteView.frame = CGRectMake(self.view.frame.size.width / 2 - 2 * 60 + count * 60 + 10,
-                                            -30 + 530 * diff / DROP_TIME,
-                                            40,
-                                            20);
+                noteView.frame = CGRectMake(self.view.frame.size.width / 2 + count * TRACK_WIDTH - 1.9 * TRACK_WIDTH,
+                                            - 30 * SCALE + (TRACK_HEIGHT + 30 * SCALE) * diff / DROP_TIME,
+                                            TRACK_WIDTH * 0.8,
+                                            TRACK_WIDTH * 0.4);
                 noteView.backgroundColor = [UIColor redColor];
                 noteView.layer.cornerRadius = 5;
                 noteView.track = count;
@@ -351,7 +361,7 @@
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:^{
                                      CGRect frame = noteView.frame;
-                                     frame.origin.y = 500 + 530 * (MISS_TIME / DROP_TIME);
+                                     frame.origin.y = TRACK_HEIGHT + (TRACK_HEIGHT + 30 * SCALE) * (MISS_TIME / DROP_TIME);
                                      [noteView setFrame:frame];
                                  }
                                  completion:^(BOOL finished) {

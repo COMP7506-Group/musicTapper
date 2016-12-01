@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    [self prefersStatusBarHidden];
+    
     UITableView * tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -30,6 +32,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+-(BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 #pragma mark - UITableViewDelegate

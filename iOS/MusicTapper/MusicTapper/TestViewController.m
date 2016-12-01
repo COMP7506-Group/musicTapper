@@ -34,8 +34,8 @@
 
 @end
 
-#define LAYOUT_R    230
-#define NOTE_SIZE   70
+#define LAYOUT_R    (230 * SCALE)
+#define NOTE_SIZE   (70 * SCALE)
 
 #define BUTTON_TAG  1000
 
@@ -86,7 +86,7 @@
     
     if (!_pauseBtn) {
         UIButton * pauseBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        pauseBtn.frame = CGRectMake(10, 10, 50, 30);
+        pauseBtn.frame = CGRectMake(10 * SCALE, 10 * SCALE, 50 * SCALE, 30 * SCALE);
         [pauseBtn setTitle:@"Back" forState:UIControlStateNormal];
         [pauseBtn addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:pauseBtn];
@@ -94,8 +94,8 @@
     }
     
     if (!_timeLable) {
-        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 50,
-                                                                        40,
+        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 50 * SCALE,
+                                                                        40 * SCALE,
                                                                         0, 0)];
         [self.view addSubview:timeLable];
         self.timeLable = timeLable;
@@ -108,7 +108,7 @@
         [nameLable sizeToFit];
         CGRect frame = nameLable.frame;
         frame.origin.x = (self.view.frame.size.width - frame.size.width) / 2;
-        frame.origin.y = 20;
+        frame.origin.y = 20 * SCALE;
         nameLable.frame = frame;
         [self.view addSubview:nameLable];
         self.nameLable = nameLable;
@@ -153,7 +153,7 @@
     
     [_myBackMusic prepareToPlay];
     [_myBackMusic setVolume:0.6];
-    _myBackMusic.numberOfLoops = -1;
+    _myBackMusic.numberOfLoops = 0;
     [_myBackMusic play];
 }
 
@@ -174,10 +174,14 @@
     }
 }
 
+-(BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (CGRect)frameWithNoteNum:(int)i progress:(float)p {
-    float size = 10 + (NOTE_SIZE - 10) * p;
+    float size = 10  * SCALE + (NOTE_SIZE - 10 * SCALE) * p;
     float x = self.view.frame.size.width / 2 - LAYOUT_R * cos(i * M_PI / 8) * p - size / 2;
-    float y = 100 + LAYOUT_R * sin(i * M_PI / 8) * p - size / 2;
+    float y = 100 * SCALE + LAYOUT_R * sin(i * M_PI / 8) * p - size / 2;
     return CGRectMake(x, y, size, size);
 }
 
@@ -253,7 +257,7 @@
     label.text = @"Miss!";
     [label sizeToFit];
     label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
-                             180,
+                             180 * SCALE,
                              label.frame.size.width,
                              label.frame.size.height);
     
@@ -284,7 +288,7 @@
     label.text = (diff > GOOD_TIME) ? @"Bad!" : (diff > PERFECT_TIME ? @"Good!" : @"Perfect!");
     [label sizeToFit];
     label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
-                             180,
+                             180 * SCALE,
                              label.frame.size.width,
                              label.frame.size.height);
     
@@ -309,7 +313,7 @@
         _comboLabel.text = [NSString stringWithFormat:@"Combo %d!", _combo];
         [_comboLabel sizeToFit];
         _comboLabel.frame = CGRectMake((self.view.frame.size.width - _comboLabel.frame.size.width) / 2,
-                                       180 - _comboLabel.frame.size.height - 10,
+                                       180 * SCALE - _comboLabel.frame.size.height - 10 * SCALE,
                                        _comboLabel.frame.size.width,
                                        _comboLabel.frame.size.height);
         _comboLabel.alpha = 1;
@@ -317,7 +321,7 @@
         [UIView animateWithDuration:0.3
                          animations:^{
                              CGRect frame = _comboLabel.frame;
-                             frame.origin.y += 10;
+                             frame.origin.y += 10 * SCALE;
                              _comboLabel.frame = frame;
                          }];
     }
@@ -355,9 +359,10 @@
     
     NSDictionary * nodeData = self.notes[_noteFlag];
     double timeBegin = [(NSNumber *)[nodeData objectForKey:@"timeBegin"] doubleValue] * 60 / self.tempo + self.pre;
+    BOOL isLeft = ([(NSNumber *)[nodeData objectForKey:@"timeBegin"] intValue] / 4) % 2 == 0;
     int track = [(NSNumber *)[nodeData objectForKey:@"track"] intValue];
     if ((timeBegin - DROP_TIME - OFFSET) <= self.myBackMusic.currentTime) {
-        int count = 0;
+        int count = isLeft ? 0 : 5;
         while (track > 0) {
             if (track % 2) {
                 NoteView * noteView = [[NoteView alloc] init];

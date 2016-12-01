@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "ListViewController.h"
+#import "Const.h"
 
 @interface MainViewController ()
 
@@ -23,10 +24,10 @@
     [testBtn addTarget:self action:@selector(push) forControlEvents:UIControlEventTouchUpInside];
     
     CGRect frame = self.view.frame;
-    testBtn.frame = CGRectMake((frame.size.width - 100) / 2,
-                               (frame.size.height - 44) / 2,
-                               100,
-                               44);
+    testBtn.frame = CGRectMake((frame.size.width - 100 * SCALE) / 2,
+                               (frame.size.height - 44 * SCALE) / 2,
+                               100 * SCALE,
+                               44 * SCALE);
     [self.view addSubview:testBtn];
     
 //    [self convertFile];
@@ -34,6 +35,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+-(BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (void)convertFile {
