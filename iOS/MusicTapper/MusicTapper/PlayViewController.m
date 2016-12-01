@@ -16,17 +16,24 @@
 @property (nonatomic, strong) AVAudioPlayer * myBackMusic;
 @property (nonatomic, strong) NSURL * goodSoundPath;
 @property (nonatomic, strong) NSURL * badSoundPath;
+
 @property (nonatomic, strong) NSArray * buttons;
-@property (nonatomic, strong) UIButton * pauseBtn;
 @property (nonatomic, strong) CADisplayLink * displayLink;
 @property (nonatomic, strong) NSArray * notes;
+@property (nonatomic, strong) UIButton * pauseBtn;
+
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSMutableArray * sounds;
 @property (nonatomic, strong) NSArray * tracks;
 @property (nonatomic) int noteFlag;
 @property (nonatomic) int tempo;
 @property (nonatomic) double pre;
+@property (nonatomic) double offset;
 @property (nonatomic) int combo;
+
+@property (nonatomic) TypePlayMod mod;
+@property (nonatomic) double diff;
+@property (nonatomic, strong) NSString * songID;
 
 @property (nonatomic, strong) UILabel * nameLable;
 @property (nonatomic, strong) UILabel * timeLable;
@@ -34,38 +41,56 @@
 
 @end
 
+#define LAYOUT_R    (230 * SCALE)
+#define NOTE_SIZE   (70 * SCALE)
+
 #define BUTTON_TAG  1000
 
-#define TRACK_WIDTH 80 * SCALE
-#define TRACK_HEIGHT 500 * SCALE
-
 @implementation PlayViewController
+
+- (id)initWithPlayMod:(TypePlayMod)mod songID:(NSString *)songID {
+    self = [super init];
+    if (self) {
+        self.mod = mod;
+        self.songID = songID;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
-    NSString * plistPath = [[NSBundle mainBundle] pathForResource:@"001" ofType:@"plist"];
+    if (_mod == TypePlayModTest) _songID = @"test";
+    
+    NSString * plistPath = [[NSBundle mainBundle] pathForResource:_songID ofType:@"plist"];
     NSDictionary * dic = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSDictionary * info = [dic objectForKey:@"info"];
     self.name = [info objectForKey:@"name"];
     self.tempo = [(NSNumber *)[info objectForKey:@"tempo"] intValue];
     self.pre = [(NSNumber *)[info objectForKey:@"start"] doubleValue];
-    self.notes = [dic objectForKey:@"nodes"];
+    self.notes = [dic objectForKey:@"notes"];
     self.noteFlag = 0;
+    self.combo = 0;
+    self.diff = 0;
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber * offset = [defaults objectForKey:KEY_OFFSET];
+    self.offset = offset ? [offset doubleValue] : 0;
     
     if (!_buttons) {
         NSMutableArray * temp = [[NSMutableArray alloc] init];
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 9; i++) {
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.layer.borderWidth = 3.0;
             button.layer.borderColor = [UIColor blueColor].CGColor;
-            button.frame = CGRectMake((self.view.frame.size.width - 4 * TRACK_WIDTH)/2 + i * TRACK_WIDTH,
-                                      TRACK_HEIGHT,
-                                      TRACK_WIDTH,
-                                      90 * SCALE);
+            button.layer.cornerRadius = NOTE_SIZE / 2;
+            button.frame = [self frameWithNoteNum:i progress:1];
             button.tag = BUTTON_TAG + i;
+            
             [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchDown];
             [temp addObject:button];
             [self.view addSubview:button];
@@ -143,30 +168,21 @@
     }
     
     if (!_myBackMusic) {
-        NSString * musicFilePath = [[NSBundle mainBundle] pathForResource:@"001" ofType:@"mp3"];
+        NSString * musicFilePath = [[NSBundle mainBundle] pathForResource:_songID ofType:@"mp3"];
         NSURL * musicURL = [[NSURL alloc] initFileURLWithPath:musicFilePath];
         AVAudioPlayer * myBackMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
+        myBackMusic.delegate = self;
         self.myBackMusic = myBackMusic;
     }
     
     [_myBackMusic prepareToPlay];
     [_myBackMusic setVolume:0.6];
-    _myBackMusic.numberOfLoops = -1;
+    _myBackMusic.numberOfLoops = 0;
     [_myBackMusic play];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
-    [_displayLink invalidate];
-    [_myBackMusic stop];
     
-    for (AVAudioPlayer * player in _sounds) {
-        player.delegate = nil;
-        [_sounds removeObject:player];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -176,18 +192,72 @@
     }
 }
 
+- (void)dealloc {
+    [_displayLink invalidate];
+    [_myBackMusic stop];
+    _myBackMusic.delegate = nil;
+    
+    for (AVAudioPlayer * player in _sounds) {
+        player.delegate = nil;
+        [_sounds removeObject:player];
+    }
+}
+
 -(BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (CGRect)frameWithNoteNum:(int)i progress:(float)p {
+    float size = 10  * SCALE + (NOTE_SIZE - 10 * SCALE) * p;
+    float x = self.view.frame.size.width / 2 - LAYOUT_R * cos(i * M_PI / 8) * p - size / 2;
+    float y = 100 * SCALE + LAYOUT_R * sin(i * M_PI / 8) * p - size / 2;
+    return CGRectMake(x, y, size, size);
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 #pragma mark - AVAudioPlayerDelegate
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     if (player != _myBackMusic) {
+        player.delegate = nil;
         [_sounds removeObject:player];
     }
-}
+    else {
+        if (_mod == TypePlayModTest) {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"Test result"
+                                                                                      message:[NSString stringWithFormat:@"Your tap's offset is:%.3f",(_diff / _notes.count)]
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction * saveAction = [UIAlertAction actionWithTitle:@"Save"
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                                    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                                                                    [userDefaults setObject:[NSNumber numberWithDouble:(_diff / _notes.count)]
+                                                                                     forKey:KEY_OFFSET];
+                                                                    [self back];
+                                                                }];
+            [alertController addAction:saveAction];
 
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                                    style:UIAlertActionStyleCancel
+                                                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                                      [self back];
+                                                                  }];
+            [alertController addAction:cancelAction];
+            [self presentViewController:alertController animated:YES completion:NULL];
+        }
+        else {
+            
+        }
+    }
+}
 
 #pragma mark - Action methods
 
@@ -213,9 +283,11 @@
         
         NSLog(@"%f", clickTime - targetView.timePoint);
         
+        _diff += clickTime - targetView.timePoint;
+        
         [self playSoundEffectIsGood:ABS(targetView.timePoint - clickTime) <= GOOD_TIME];
         
-        [self showTapResult:ABS(targetView.timePoint - clickTime)];
+        [self showTapResult:ABS(targetView.timePoint - clickTime - _offset)];
         
         [targetView removeFromSuperview];
         [notes removeObject:targetView];
@@ -235,6 +307,8 @@
 }
 
 - (void)showMiss {
+    if (_mod == TypePlayModTest) return;
+    
     _combo = 0;
     [self updateCombo];
     
@@ -261,6 +335,8 @@
 }
 
 - (void)showTapResult:(NSTimeInterval)diff {
+    if (_mod == TypePlayModTest) return;
+    
     if (diff > GOOD_TIME) {
         _combo = 0;
     }
@@ -314,6 +390,16 @@
 }
 
 - (void)back {
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val = UIInterfaceOrientationPortrait;
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
+    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -335,19 +421,18 @@
     
     NSDictionary * nodeData = self.notes[_noteFlag];
     double timeBegin = [(NSNumber *)[nodeData objectForKey:@"timeBegin"] doubleValue] * 60 / self.tempo + self.pre;
+    BOOL isLeft = ([(NSNumber *)[nodeData objectForKey:@"timeBegin"] intValue] / 4) % 2 == 0;
     int track = [(NSNumber *)[nodeData objectForKey:@"track"] intValue];
-    if ((timeBegin - DROP_TIME - OFFSET) <= self.myBackMusic.currentTime) {
-        int count = 0;
+    if ((timeBegin - DROP_TIME) <= self.myBackMusic.currentTime) {
+        int count = isLeft ? 0 : 0;
         while (track > 0) {
             if (track % 2) {
                 NoteView * noteView = [[NoteView alloc] init];
-                double diff = (self.myBackMusic.currentTime - (timeBegin - DROP_TIME - OFFSET));
-                noteView.frame = CGRectMake(self.view.frame.size.width / 2 + count * TRACK_WIDTH - 1.9 * TRACK_WIDTH,
-                                            - 30 * SCALE + (TRACK_HEIGHT + 30 * SCALE) * diff / DROP_TIME,
-                                            TRACK_WIDTH * 0.8,
-                                            TRACK_WIDTH * 0.4);
-                noteView.backgroundColor = [UIColor redColor];
-                noteView.layer.cornerRadius = 5;
+                double diff = (self.myBackMusic.currentTime - (timeBegin - DROP_TIME));
+                noteView.frame = [self frameWithNoteNum:count progress:(diff/DROP_TIME)];
+                noteView.layer.cornerRadius = noteView.frame.size.width / 2;
+                noteView.layer.borderWidth = 3;
+                noteView.layer.borderColor = [UIColor redColor].CGColor;
                 noteView.track = count;
                 noteView.timePoint = (NSTimeInterval)timeBegin;
                 noteView.isTapped = NO;
@@ -356,13 +441,21 @@
                 
                 [self.view addSubview:noteView];
                 
+                CABasicAnimation * cornerAnimation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
+                cornerAnimation.duration = DROP_TIME - diff + MISS_TIME;
+                cornerAnimation.fromValue = @([self frameWithNoteNum:count progress:diff/DROP_TIME].size.width / 2);
+                cornerAnimation.toValue = @([self frameWithNoteNum:count progress:1 + MISS_TIME / DROP_TIME].size.width / 2);
+                cornerAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+                cornerAnimation.removedOnCompletion = NO;
+                cornerAnimation.fillMode = kCAFillModeForwards;
+                [noteView.layer addAnimation:cornerAnimation forKey:@"cornerRadius"];
+                
                 [UIView animateWithDuration:DROP_TIME - diff + MISS_TIME
                                       delay:0
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:^{
-                                     CGRect frame = noteView.frame;
-                                     frame.origin.y = TRACK_HEIGHT + (TRACK_HEIGHT + 30 * SCALE) * (MISS_TIME / DROP_TIME);
-                                     [noteView setFrame:frame];
+                                     noteView.frame = [self frameWithNoteNum:count progress:1 + MISS_TIME / DROP_TIME];
+                                     noteView.layer.cornerRadius = noteView.frame.size.width / 2;
                                  }
                                  completion:^(BOOL finished) {
                                      if (!noteView.isTapped) {

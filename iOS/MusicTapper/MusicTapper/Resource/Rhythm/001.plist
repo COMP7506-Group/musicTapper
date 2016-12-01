@@ -7,11 +7,11 @@
 		<key>name</key>
 		<string>極楽浄土</string>
 		<key>start</key>
-		<real>4.75</real>
+		<real>4.65</real>
 		<key>tempo</key>
 		<integer>262</integer>
 	</dict>
-	<key>nodes</key>
+	<key>notes</key>
 	<array>
 		<dict>
 			<key>duration</key>

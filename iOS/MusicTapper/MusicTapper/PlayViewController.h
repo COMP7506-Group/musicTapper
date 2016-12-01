@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    TypePlayModEasy,
+    TypePlayModHard,
+    TypePlayModAuto,
+    TypePlayModTest
+}TypePlayMod;
+
 @interface PlayViewController : UIViewController
+
+- (id)initWithPlayMod:(TypePlayMod)mod songID:(NSString *)songID;
 
 @end

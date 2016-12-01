@@ -22,7 +22,9 @@
 		0C4BB0811DEC732200DA8291 /* good.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C4BB07F1DEC732200DA8291 /* good.mp3 */; };
 		0C4BB0831DEC732E00DA8291 /* 001.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C4BB0821DEC732E00DA8291 /* 001.plist */; };
 		0C4BB08B1DEC77F700DA8291 /* NoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB08A1DEC77F700DA8291 /* NoteView.m */; };
-		0CB9C5981DED61A1009EA527 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB9C5971DED61A1009EA527 /* TestViewController.m */; };
+		0C7577F01DF039DC000EDA46 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7577EF1DF039DC000EDA46 /* ResultView.m */; };
+		0C7577FA1DF054DF000EDA46 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C7577F91DF054DF000EDA46 /* test.mp3 */; };
+		0C7577FC1DF054F1000EDA46 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C7577FB1DF054F1000EDA46 /* test.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +72,10 @@
 		0C4BB0881DEC778A00DA8291 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		0C4BB0891DEC77F700DA8291 /* NoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteView.h; path = View/NoteView.h; sourceTree = "<group>"; };
 		0C4BB08A1DEC77F700DA8291 /* NoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteView.m; path = View/NoteView.m; sourceTree = "<group>"; };
-		0CB9C5961DED61A1009EA527 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		0CB9C5971DED61A1009EA527 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		0C7577EE1DF039DC000EDA46 /* ResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultView.h; path = View/ResultView.h; sourceTree = "<group>"; };
+		0C7577EF1DF039DC000EDA46 /* ResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResultView.m; path = View/ResultView.m; sourceTree = "<group>"; };
+		0C7577F91DF054DF000EDA46 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = test.mp3; path = Resource/Music/test.mp3; sourceTree = "<group>"; };
+		0C7577FB1DF054F1000EDA46 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = test.plist; path = Resource/Rhythm/test.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				0C4BB07C1DEC730900DA8291 /* 001.mp3 */,
+				0C7577F91DF054DF000EDA46 /* test.mp3 */,
 			);
 			name = Music;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				0C4BB0821DEC732E00DA8291 /* 001.plist */,
+				0C7577FB1DF054F1000EDA46 /* test.plist */,
 			);
 			name = Ryhthm;
 			sourceTree = "<group>";
@@ -208,8 +214,6 @@
 				0C4BB0731DEC722C00DA8291 /* ListViewController.m */,
 				0C4BB0751DEC724400DA8291 /* PlayViewController.h */,
 				0C4BB0761DEC724400DA8291 /* PlayViewController.m */,
-				0CB9C5961DED61A1009EA527 /* TestViewController.h */,
-				0CB9C5971DED61A1009EA527 /* TestViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -219,6 +223,8 @@
 			children = (
 				0C4BB0891DEC77F700DA8291 /* NoteView.h */,
 				0C4BB08A1DEC77F700DA8291 /* NoteView.m */,
+				0C7577EE1DF039DC000EDA46 /* ResultView.h */,
+				0C7577EF1DF039DC000EDA46 /* ResultView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -342,7 +348,9 @@
 				0C4BB0801DEC732200DA8291 /* bad.mp3 in Resources */,
 				0C4BB04F1DEC71EC00DA8291 /* LaunchScreen.storyboard in Resources */,
 				0C4BB04C1DEC71EC00DA8291 /* Assets.xcassets in Resources */,
+				0C7577FC1DF054F1000EDA46 /* test.plist in Resources */,
 				0C4BB07D1DEC730900DA8291 /* 001.mp3 in Resources */,
+				0C7577FA1DF054DF000EDA46 /* test.mp3 in Resources */,
 				0C4BB04A1DEC71EC00DA8291 /* Main.storyboard in Resources */,
 				0C4BB0811DEC732200DA8291 /* good.mp3 in Resources */,
 				0C4BB0831DEC732E00DA8291 /* 001.plist in Resources */,
@@ -371,8 +379,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C4BB0471DEC71EC00DA8291 /* MainViewController.m in Sources */,
+				0C7577F01DF039DC000EDA46 /* ResultView.m in Sources */,
 				0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */,
-				0CB9C5981DED61A1009EA527 /* TestViewController.m in Sources */,
 				0C4BB0741DEC722C00DA8291 /* ListViewController.m in Sources */,
 				0C4BB0771DEC724400DA8291 /* PlayViewController.m in Sources */,
 				0C4BB08B1DEC77F700DA8291 /* NoteView.m in Sources */,

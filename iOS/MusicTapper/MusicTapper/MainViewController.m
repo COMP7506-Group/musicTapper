@@ -64,7 +64,7 @@
                                 @"duration":[NSNumber numberWithFloat:[[noteArray objectAtIndex:3] floatValue]]}];
     }
     
-    NSDictionary * plistContent = [[NSDictionary alloc] initWithObjectsAndKeys:info, @"info", resultsArr, @"nodes", nil];
+    NSDictionary * plistContent = [[NSDictionary alloc] initWithObjectsAndKeys:info, @"info", resultsArr, @"notes", nil];
     NSString * plistPath = [NSHomeDirectory() stringByAppendingPathComponent:@"notes.plist"];
     [plistContent writeToFile:plistPath atomically:YES];
 }
