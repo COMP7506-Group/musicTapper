@@ -11,10 +11,10 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:layout_alignStart="@+id/p1"
         android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/startButton">
+        >
 
         <Button
             android:text="Pause"
@@ -22,25 +22,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/pause" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:text="Run"
-        android:layout_marginLeft="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:id="@+id/target"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:text="Target"
-        android:layout_marginLeft="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/startButton"
-        android:layout_alignBottom="@+id/startButton" />
 
     <ImageButton
         android:id="@+id/p2"
@@ -68,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="4"
         android:layout_marginLeft="2dp"
-        android:id="@+id/button3"
+        android:id="@+id/p4"
         android:layout_alignTop="@+id/p3"
         android:layout_toEndOf="@+id/p3"
         android:background="@drawable/buttons"
@@ -85,6 +66,27 @@
         android:layout_alignParentStart="false"
         android:background="@drawable/buttons"
         android:visibility="visible" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/p3"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:layout_toStartOf="@+id/p4"
+        android:layout_marginBottom="102dp"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/textView3"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_above="@+id/textView" />
 
 
 </RelativeLayout>
