@@ -288,7 +288,7 @@
         
         _diff += clickTime - targetView.timePoint;
         
-        [self playSoundEffectIsGood:ABS(targetView.timePoint - clickTime) <= GOOD_TIME];
+        [self playSoundEffectIsGood:ABS(targetView.timePoint - clickTime - _offset) <= GOOD_TIME];
         
         [self showTapResult:ABS(targetView.timePoint - clickTime - _offset)];
         
