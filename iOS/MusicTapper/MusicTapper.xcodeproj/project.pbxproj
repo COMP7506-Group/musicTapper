@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C370FE41DF0948A00542B5A /* CAKeyframeAnimation+AHEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C370FE11DF0948A00542B5A /* CAKeyframeAnimation+AHEasing.m */; };
+		0C370FE51DF0948A00542B5A /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C370FE21DF0948A00542B5A /* easing.c */; };
+		0C370FEB1DF1519F00542B5A /* UIView+EasingFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C370FEA1DF1519F00542B5A /* UIView+EasingFunctions.m */; };
 		0C4BB0411DEC71EC00DA8291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0401DEC71EC00DA8291 /* main.m */; };
 		0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0431DEC71EC00DA8291 /* AppDelegate.m */; };
 		0C4BB0471DEC71EC00DA8291 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0461DEC71EC00DA8291 /* MainViewController.m */; };
@@ -45,6 +48,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C370FE01DF0948A00542B5A /* CAKeyframeAnimation+AHEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAKeyframeAnimation+AHEasing.h"; sourceTree = "<group>"; };
+		0C370FE11DF0948A00542B5A /* CAKeyframeAnimation+AHEasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAKeyframeAnimation+AHEasing.m"; sourceTree = "<group>"; };
+		0C370FE21DF0948A00542B5A /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
+		0C370FE31DF0948A00542B5A /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
+		0C370FE91DF1519F00542B5A /* UIView+EasingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+EasingFunctions.h"; sourceTree = "<group>"; };
+		0C370FEA1DF1519F00542B5A /* UIView+EasingFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+EasingFunctions.m"; sourceTree = "<group>"; };
 		0C4BB03C1DEC71EC00DA8291 /* MusicTapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4BB0401DEC71EC00DA8291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C4BB0421DEC71EC00DA8291 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -103,6 +112,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C370FDF1DF0948A00542B5A /* AHEasing */ = {
+			isa = PBXGroup;
+			children = (
+				0C370FE91DF1519F00542B5A /* UIView+EasingFunctions.h */,
+				0C370FEA1DF1519F00542B5A /* UIView+EasingFunctions.m */,
+				0C370FE01DF0948A00542B5A /* CAKeyframeAnimation+AHEasing.h */,
+				0C370FE11DF0948A00542B5A /* CAKeyframeAnimation+AHEasing.m */,
+				0C370FE21DF0948A00542B5A /* easing.c */,
+				0C370FE31DF0948A00542B5A /* easing.h */,
+			);
+			name = AHEasing;
+			path = Vendor/AHEasing;
+			sourceTree = "<group>";
+		};
 		0C4BB0331DEC71EC00DA8291 = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +255,7 @@
 		0C4BB08C1DEC782F00DA8291 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				0C370FDF1DF0948A00542B5A /* AHEasing */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -382,7 +406,10 @@
 				0C7577F01DF039DC000EDA46 /* ResultView.m in Sources */,
 				0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */,
 				0C4BB0741DEC722C00DA8291 /* ListViewController.m in Sources */,
+				0C370FE41DF0948A00542B5A /* CAKeyframeAnimation+AHEasing.m in Sources */,
 				0C4BB0771DEC724400DA8291 /* PlayViewController.m in Sources */,
+				0C370FE51DF0948A00542B5A /* easing.c in Sources */,
+				0C370FEB1DF1519F00542B5A /* UIView+EasingFunctions.m in Sources */,
 				0C4BB08B1DEC77F700DA8291 /* NoteView.m in Sources */,
 				0C4BB0411DEC71EC00DA8291 /* main.m in Sources */,
 			);

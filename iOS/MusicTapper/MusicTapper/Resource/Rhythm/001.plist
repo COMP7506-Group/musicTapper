@@ -10,6 +10,10 @@
 		<real>4.75</real>
 		<key>tempo</key>
 		<integer>262</integer>
+		<key>score_hard</key>
+		<integer>9342390</integer>
+		<key>score_easy</key>
+		<integer>5104748</integer>
 	</dict>
 	<key>notes</key>
 	<array>

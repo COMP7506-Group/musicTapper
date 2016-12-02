@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    TypePlayModEasy,
-    TypePlayModHard,
-    TypePlayModAuto,
-    TypePlayModTest
-}TypePlayMod;
+    TypePlayModeEasy,
+    TypePlayModeHard,
+    TypePlayModeAuto,
+    TypePlayModeTest
+}TypePlayMode;
 
 @interface PlayViewController : UIViewController
 
-- (id)initWithPlayMod:(TypePlayMod)mod songID:(NSString *)songID;
+- (id)initWithPlayMod:(TypePlayMode)mode songID:(NSString *)songID;
 
 @end

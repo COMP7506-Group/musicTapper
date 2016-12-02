@@ -18,10 +18,13 @@
 
 @implementation ListViewController
 
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    [self prefersStatusBarHidden];
     
     UITableView * tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     tableView.delegate = self;
@@ -45,27 +48,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TypePlayMod mod;
+    TypePlayMode mode;
     switch (indexPath.row) {
         case 0:
-            mod = TypePlayModEasy;
+            mode = TypePlayModeEasy;
             break;
         case 1:
-            mod = TypePlayModHard;
+            mode = TypePlayModeHard;
             break;
         case 2:
-            mod = TypePlayModTest;
+            mode = TypePlayModeTest;
             break;
         case 3:
-            mod = TypePlayModAuto;
+            mode = TypePlayModeAuto;
             break;
             
         default:
-            mod = TypePlayModEasy;
+            mode = TypePlayModeEasy;
             break;
     }
     
-    PlayViewController * controller = [[PlayViewController alloc] initWithPlayMod:mod songID:@"001"];
+    PlayViewController * controller = [[PlayViewController alloc] initWithPlayMod:mode songID:@"001"];
     [self presentViewController:controller animated:YES completion:NULL];
 }
 
@@ -87,25 +90,25 @@
     
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"Easy mod";
+            cell.textLabel.text = @"Easy mode";
             break;
         case 1:
-            cell.textLabel.text = @"Hard mod";
+            cell.textLabel.text = @"Hard mode";
             break;
         case 2:
             if (offset) {
-                cell.textLabel.text = [NSString stringWithFormat:@"Test mod (offset = %3f)", [offset doubleValue]];
+                cell.textLabel.text = [NSString stringWithFormat:@"Test mode (offset = %3f)", [offset doubleValue]];
             }
             else {
-                cell.textLabel.text = @"Test mod (offset = 0)";
+                cell.textLabel.text = @"Test mode (offset = 0)";
             }
             break;
         case 3:
-            cell.textLabel.text = @"Auto mod";
+            cell.textLabel.text = @"Auto mode";
             break;
             
         default:
-            cell.textLabel.text = @"Easy mod";
+            cell.textLabel.text = @"Easy mode";
             break;
     }
     
