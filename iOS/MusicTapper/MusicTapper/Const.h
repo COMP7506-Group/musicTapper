@@ -12,7 +12,7 @@
 #define SYSYTEM_OFFSET  0.14
 #define DROP_TIME       1.0
 #define MISS_TIME       0.30
-#define GREAT_TIME       0.10
+#define GREAT_TIME      0.10
 #define PERFECT_TIME    0.05
 
 #define BASE_SCORE      12450

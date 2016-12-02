@@ -9,6 +9,26 @@
 /* Begin PBXBuildFile section */
 		0C370FEE1DF19C6E00542B5A /* red_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C370FEC1DF19C6E00542B5A /* red_heart.png */; };
 		0C370FEF1DF19C6E00542B5A /* white_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C370FED1DF19C6E00542B5A /* white_heart.png */; };
+		0C3710221DF1CDAC00542B5A /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37100A1DF1CDAC00542B5A /* MASCompositeConstraint.m */; };
+		0C3710231DF1CDAC00542B5A /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37100C1DF1CDAC00542B5A /* MASConstraint.m */; };
+		0C3710241DF1CDAC00542B5A /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37100F1DF1CDAC00542B5A /* MASConstraintMaker.m */; };
+		0C3710251DF1CDAC00542B5A /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710111DF1CDAC00542B5A /* MASLayoutConstraint.m */; };
+		0C3710261DF1CDAC00542B5A /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710151DF1CDAC00542B5A /* MASViewAttribute.m */; };
+		0C3710271DF1CDAC00542B5A /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710171DF1CDAC00542B5A /* MASViewConstraint.m */; };
+		0C3710281DF1CDAC00542B5A /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710191DF1CDAC00542B5A /* NSArray+MASAdditions.m */; };
+		0C3710291DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37101C1DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		0C37102A1DF1CDAC00542B5A /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37101E1DF1CDAC00542B5A /* View+MASAdditions.m */; };
+		0C37102B1DF1CDAC00542B5A /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710211DF1CDAC00542B5A /* ViewController+MASAdditions.m */; };
+		0C3710651DF1CE0700542B5A /* MKJCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37105B1DF1CE0700542B5A /* MKJCollectionViewCell.m */; };
+		0C3710661DF1CE0700542B5A /* MKJCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C37105C1DF1CE0700542B5A /* MKJCollectionViewCell.xib */; };
+		0C3710671DF1CE0700542B5A /* MKJCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37105E1DF1CE0700542B5A /* MKJCollectionViewFlowLayout.m */; };
+		0C3710681DF1CE0700542B5A /* MKJConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710601DF1CE0700542B5A /* MKJConstant.m */; };
+		0C3710691DF1CE0700542B5A /* MKJItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710621DF1CE0700542B5A /* MKJItemModel.m */; };
+		0C37106A1DF1CE0700542B5A /* MKJMainPopoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710641DF1CE0700542B5A /* MKJMainPopoutView.m */; };
+		0C3710701DF1CE7E00542B5A /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37106D1DF1CE7E00542B5A /* NSArray+Extension.m */; };
+		0C3710711DF1CE7E00542B5A /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37106F1DF1CE7E00542B5A /* UIView+Extension.m */; };
+		0C3710731DF1D1EE00542B5A /* songList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710721DF1D1EE00542B5A /* songList.plist */; };
+		0C3710771DF1DB6700542B5A /* 001.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710761DF1DB6700542B5A /* 001.png */; };
 		0C4BB0411DEC71EC00DA8291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0401DEC71EC00DA8291 /* main.m */; };
 		0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0431DEC71EC00DA8291 /* AppDelegate.m */; };
 		0C4BB0471DEC71EC00DA8291 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0461DEC71EC00DA8291 /* MainViewController.m */; };
@@ -17,7 +37,6 @@
 		0C4BB04F1DEC71EC00DA8291 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C4BB04D1DEC71EC00DA8291 /* LaunchScreen.storyboard */; };
 		0C4BB05A1DEC71EC00DA8291 /* MusicTapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0591DEC71EC00DA8291 /* MusicTapperTests.m */; };
 		0C4BB0651DEC71EC00DA8291 /* MusicTapperUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0641DEC71EC00DA8291 /* MusicTapperUITests.m */; };
-		0C4BB0741DEC722C00DA8291 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0731DEC722C00DA8291 /* ListViewController.m */; };
 		0C4BB0771DEC724400DA8291 /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0761DEC724400DA8291 /* PlayViewController.m */; };
 		0C4BB07D1DEC730900DA8291 /* 001.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C4BB07C1DEC730900DA8291 /* 001.mp3 */; };
 		0C4BB0801DEC732200DA8291 /* bad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C4BB07E1DEC732200DA8291 /* bad.mp3 */; };
@@ -49,6 +68,48 @@
 /* Begin PBXFileReference section */
 		0C370FEC1DF19C6E00542B5A /* red_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red_heart.png; path = Resource/Image/red_heart.png; sourceTree = "<group>"; };
 		0C370FED1DF19C6E00542B5A /* white_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = white_heart.png; path = Resource/Image/white_heart.png; sourceTree = "<group>"; };
+		0C3710091DF1CDAC00542B5A /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Vendor/Masonry/MASCompositeConstraint.h; sourceTree = "<group>"; };
+		0C37100A1DF1CDAC00542B5A /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MASCompositeConstraint.m; path = Vendor/Masonry/MASCompositeConstraint.m; sourceTree = "<group>"; };
+		0C37100B1DF1CDAC00542B5A /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Vendor/Masonry/MASConstraint.h; sourceTree = "<group>"; };
+		0C37100C1DF1CDAC00542B5A /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Vendor/Masonry/MASConstraint.m; sourceTree = "<group>"; };
+		0C37100D1DF1CDAC00542B5A /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Vendor/Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
+		0C37100E1DF1CDAC00542B5A /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASConstraintMaker.h; path = Vendor/Masonry/MASConstraintMaker.h; sourceTree = "<group>"; };
+		0C37100F1DF1CDAC00542B5A /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MASConstraintMaker.m; path = Vendor/Masonry/MASConstraintMaker.m; sourceTree = "<group>"; };
+		0C3710101DF1CDAC00542B5A /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASLayoutConstraint.h; path = Vendor/Masonry/MASLayoutConstraint.h; sourceTree = "<group>"; };
+		0C3710111DF1CDAC00542B5A /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MASLayoutConstraint.m; path = Vendor/Masonry/MASLayoutConstraint.m; sourceTree = "<group>"; };
+		0C3710121DF1CDAC00542B5A /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Masonry.h; path = Vendor/Masonry/Masonry.h; sourceTree = "<group>"; };
+		0C3710131DF1CDAC00542B5A /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Vendor/Masonry/MASUtilities.h; sourceTree = "<group>"; };
+		0C3710141DF1CDAC00542B5A /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Vendor/Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
+		0C3710151DF1CDAC00542B5A /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Vendor/Masonry/MASViewAttribute.m; sourceTree = "<group>"; };
+		0C3710161DF1CDAC00542B5A /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MASViewConstraint.h; path = Vendor/Masonry/MASViewConstraint.h; sourceTree = "<group>"; };
+		0C3710171DF1CDAC00542B5A /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Vendor/Masonry/MASViewConstraint.m; sourceTree = "<group>"; };
+		0C3710181DF1CDAC00542B5A /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASAdditions.h"; path = "Vendor/Masonry/NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		0C3710191DF1CDAC00542B5A /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Vendor/Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		0C37101A1DF1CDAC00542B5A /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Vendor/Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		0C37101B1DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Vendor/Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		0C37101C1DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Vendor/Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		0C37101D1DF1CDAC00542B5A /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "View+MASAdditions.h"; path = "Vendor/Masonry/View+MASAdditions.h"; sourceTree = "<group>"; };
+		0C37101E1DF1CDAC00542B5A /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Vendor/Masonry/View+MASAdditions.m"; sourceTree = "<group>"; };
+		0C37101F1DF1CDAC00542B5A /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Vendor/Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		0C3710201DF1CDAC00542B5A /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ViewController+MASAdditions.h"; path = "Vendor/Masonry/ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		0C3710211DF1CDAC00542B5A /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Vendor/Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		0C37105A1DF1CE0700542B5A /* MKJCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKJCollectionViewCell.h; path = Vendor/MKJCollectionView/MKJCollectionViewCell.h; sourceTree = "<group>"; };
+		0C37105B1DF1CE0700542B5A /* MKJCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKJCollectionViewCell.m; path = Vendor/MKJCollectionView/MKJCollectionViewCell.m; sourceTree = "<group>"; };
+		0C37105C1DF1CE0700542B5A /* MKJCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MKJCollectionViewCell.xib; path = Vendor/MKJCollectionView/MKJCollectionViewCell.xib; sourceTree = "<group>"; };
+		0C37105D1DF1CE0700542B5A /* MKJCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKJCollectionViewFlowLayout.h; path = Vendor/MKJCollectionView/MKJCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		0C37105E1DF1CE0700542B5A /* MKJCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKJCollectionViewFlowLayout.m; path = Vendor/MKJCollectionView/MKJCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		0C37105F1DF1CE0700542B5A /* MKJConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKJConstant.h; path = Vendor/MKJCollectionView/MKJConstant.h; sourceTree = "<group>"; };
+		0C3710601DF1CE0700542B5A /* MKJConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKJConstant.m; path = Vendor/MKJCollectionView/MKJConstant.m; sourceTree = "<group>"; };
+		0C3710611DF1CE0700542B5A /* MKJItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKJItemModel.h; path = Vendor/MKJCollectionView/MKJItemModel.h; sourceTree = "<group>"; };
+		0C3710621DF1CE0700542B5A /* MKJItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKJItemModel.m; path = Vendor/MKJCollectionView/MKJItemModel.m; sourceTree = "<group>"; };
+		0C3710631DF1CE0700542B5A /* MKJMainPopoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKJMainPopoutView.h; path = Vendor/MKJCollectionView/MKJMainPopoutView.h; sourceTree = "<group>"; };
+		0C3710641DF1CE0700542B5A /* MKJMainPopoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKJMainPopoutView.m; path = Vendor/MKJCollectionView/MKJMainPopoutView.m; sourceTree = "<group>"; };
+		0C37106C1DF1CE7E00542B5A /* NSArray+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Extension.h"; path = "Vendor/tools/NSArray+Extension.h"; sourceTree = "<group>"; };
+		0C37106D1DF1CE7E00542B5A /* NSArray+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Extension.m"; path = "Vendor/tools/NSArray+Extension.m"; sourceTree = "<group>"; };
+		0C37106E1DF1CE7E00542B5A /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Extension.h"; path = "Vendor/tools/UIView+Extension.h"; sourceTree = "<group>"; };
+		0C37106F1DF1CE7E00542B5A /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Extension.m"; path = "Vendor/tools/UIView+Extension.m"; sourceTree = "<group>"; };
+		0C3710721DF1D1EE00542B5A /* songList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = songList.plist; path = Resource/songList.plist; sourceTree = "<group>"; };
+		0C3710761DF1DB6700542B5A /* 001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 001.png; path = Resource/Image/001.png; sourceTree = "<group>"; };
 		0C4BB03C1DEC71EC00DA8291 /* MusicTapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4BB0401DEC71EC00DA8291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C4BB0421DEC71EC00DA8291 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -65,8 +126,6 @@
 		0C4BB0601DEC71EC00DA8291 /* MusicTapperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicTapperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4BB0641DEC71EC00DA8291 /* MusicTapperUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicTapperUITests.m; sourceTree = "<group>"; };
 		0C4BB0661DEC71EC00DA8291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0C4BB0721DEC722C00DA8291 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
-		0C4BB0731DEC722C00DA8291 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		0C4BB0751DEC724400DA8291 /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
 		0C4BB0761DEC724400DA8291 /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
 		0C4BB07C1DEC730900DA8291 /* 001.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 001.mp3; path = Resource/Music/001.mp3; sourceTree = "<group>"; };
@@ -112,8 +171,70 @@
 			children = (
 				0C370FEC1DF19C6E00542B5A /* red_heart.png */,
 				0C370FED1DF19C6E00542B5A /* white_heart.png */,
+				0C3710761DF1DB6700542B5A /* 001.png */,
 			);
 			name = Image;
+			sourceTree = "<group>";
+		};
+		0C37102C1DF1CDB300542B5A /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				0C3710091DF1CDAC00542B5A /* MASCompositeConstraint.h */,
+				0C37100A1DF1CDAC00542B5A /* MASCompositeConstraint.m */,
+				0C37100B1DF1CDAC00542B5A /* MASConstraint.h */,
+				0C37100C1DF1CDAC00542B5A /* MASConstraint.m */,
+				0C37100D1DF1CDAC00542B5A /* MASConstraint+Private.h */,
+				0C37100E1DF1CDAC00542B5A /* MASConstraintMaker.h */,
+				0C37100F1DF1CDAC00542B5A /* MASConstraintMaker.m */,
+				0C3710101DF1CDAC00542B5A /* MASLayoutConstraint.h */,
+				0C3710111DF1CDAC00542B5A /* MASLayoutConstraint.m */,
+				0C3710121DF1CDAC00542B5A /* Masonry.h */,
+				0C3710131DF1CDAC00542B5A /* MASUtilities.h */,
+				0C3710141DF1CDAC00542B5A /* MASViewAttribute.h */,
+				0C3710151DF1CDAC00542B5A /* MASViewAttribute.m */,
+				0C3710161DF1CDAC00542B5A /* MASViewConstraint.h */,
+				0C3710171DF1CDAC00542B5A /* MASViewConstraint.m */,
+				0C3710181DF1CDAC00542B5A /* NSArray+MASAdditions.h */,
+				0C3710191DF1CDAC00542B5A /* NSArray+MASAdditions.m */,
+				0C37101A1DF1CDAC00542B5A /* NSArray+MASShorthandAdditions.h */,
+				0C37101B1DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.h */,
+				0C37101C1DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.m */,
+				0C37101D1DF1CDAC00542B5A /* View+MASAdditions.h */,
+				0C37101E1DF1CDAC00542B5A /* View+MASAdditions.m */,
+				0C37101F1DF1CDAC00542B5A /* View+MASShorthandAdditions.h */,
+				0C3710201DF1CDAC00542B5A /* ViewController+MASAdditions.h */,
+				0C3710211DF1CDAC00542B5A /* ViewController+MASAdditions.m */,
+			);
+			name = Masonry;
+			sourceTree = "<group>";
+		};
+		0C3710591DF1CDF500542B5A /* MKJCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0C37105A1DF1CE0700542B5A /* MKJCollectionViewCell.h */,
+				0C37105B1DF1CE0700542B5A /* MKJCollectionViewCell.m */,
+				0C37105C1DF1CE0700542B5A /* MKJCollectionViewCell.xib */,
+				0C37105D1DF1CE0700542B5A /* MKJCollectionViewFlowLayout.h */,
+				0C37105E1DF1CE0700542B5A /* MKJCollectionViewFlowLayout.m */,
+				0C37105F1DF1CE0700542B5A /* MKJConstant.h */,
+				0C3710601DF1CE0700542B5A /* MKJConstant.m */,
+				0C3710611DF1CE0700542B5A /* MKJItemModel.h */,
+				0C3710621DF1CE0700542B5A /* MKJItemModel.m */,
+				0C3710631DF1CE0700542B5A /* MKJMainPopoutView.h */,
+				0C3710641DF1CE0700542B5A /* MKJMainPopoutView.m */,
+			);
+			name = MKJCollectionView;
+			sourceTree = "<group>";
+		};
+		0C37106B1DF1CE7100542B5A /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				0C37106C1DF1CE7E00542B5A /* NSArray+Extension.h */,
+				0C37106D1DF1CE7E00542B5A /* NSArray+Extension.m */,
+				0C37106E1DF1CE7E00542B5A /* UIView+Extension.h */,
+				0C37106F1DF1CE7E00542B5A /* UIView+Extension.m */,
+			);
+			name = tools;
 			sourceTree = "<group>";
 		};
 		0C4BB0331DEC71EC00DA8291 = {
@@ -184,6 +305,7 @@
 		0C4BB0781DEC727F00DA8291 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0C3710721DF1D1EE00542B5A /* songList.plist */,
 				0C370FF01DF19C7400542B5A /* Image */,
 				0C4BB0791DEC729F00DA8291 /* Music */,
 				0C4BB07B1DEC72D400DA8291 /* Sound */,
@@ -224,8 +346,6 @@
 			children = (
 				0C4BB0451DEC71EC00DA8291 /* MainViewController.h */,
 				0C4BB0461DEC71EC00DA8291 /* MainViewController.m */,
-				0C4BB0721DEC722C00DA8291 /* ListViewController.h */,
-				0C4BB0731DEC722C00DA8291 /* ListViewController.m */,
 				0C4BB0751DEC724400DA8291 /* PlayViewController.h */,
 				0C4BB0761DEC724400DA8291 /* PlayViewController.m */,
 			);
@@ -246,6 +366,9 @@
 		0C4BB08C1DEC782F00DA8291 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				0C37106B1DF1CE7100542B5A /* tools */,
+				0C3710591DF1CDF500542B5A /* MKJCollectionView */,
+				0C37102C1DF1CDB300542B5A /* Masonry */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -359,9 +482,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3710731DF1D1EE00542B5A /* songList.plist in Resources */,
 				0C4BB0801DEC732200DA8291 /* bad.mp3 in Resources */,
 				0C370FEE1DF19C6E00542B5A /* red_heart.png in Resources */,
+				0C3710771DF1DB6700542B5A /* 001.png in Resources */,
 				0C4BB04F1DEC71EC00DA8291 /* LaunchScreen.storyboard in Resources */,
+				0C3710661DF1CE0700542B5A /* MKJCollectionViewCell.xib in Resources */,
 				0C4BB04C1DEC71EC00DA8291 /* Assets.xcassets in Resources */,
 				0C7577FC1DF054F1000EDA46 /* test.plist in Resources */,
 				0C4BB07D1DEC730900DA8291 /* 001.mp3 in Resources */,
@@ -394,12 +520,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3710681DF1CE0700542B5A /* MKJConstant.m in Sources */,
+				0C3710281DF1CDAC00542B5A /* NSArray+MASAdditions.m in Sources */,
+				0C3710671DF1CE0700542B5A /* MKJCollectionViewFlowLayout.m in Sources */,
+				0C3710271DF1CDAC00542B5A /* MASViewConstraint.m in Sources */,
+				0C3710711DF1CE7E00542B5A /* UIView+Extension.m in Sources */,
 				0C4BB0471DEC71EC00DA8291 /* MainViewController.m in Sources */,
+				0C3710241DF1CDAC00542B5A /* MASConstraintMaker.m in Sources */,
+				0C37102A1DF1CDAC00542B5A /* View+MASAdditions.m in Sources */,
 				0C7577F01DF039DC000EDA46 /* ResultView.m in Sources */,
+				0C3710231DF1CDAC00542B5A /* MASConstraint.m in Sources */,
+				0C3710701DF1CE7E00542B5A /* NSArray+Extension.m in Sources */,
 				0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */,
-				0C4BB0741DEC722C00DA8291 /* ListViewController.m in Sources */,
+				0C3710261DF1CDAC00542B5A /* MASViewAttribute.m in Sources */,
+				0C3710291DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				0C3710221DF1CDAC00542B5A /* MASCompositeConstraint.m in Sources */,
+				0C37106A1DF1CE0700542B5A /* MKJMainPopoutView.m in Sources */,
+				0C3710251DF1CDAC00542B5A /* MASLayoutConstraint.m in Sources */,
 				0C4BB0771DEC724400DA8291 /* PlayViewController.m in Sources */,
 				0C4BB08B1DEC77F700DA8291 /* NoteView.m in Sources */,
+				0C3710651DF1CE0700542B5A /* MKJCollectionViewCell.m in Sources */,
+				0C3710691DF1CE0700542B5A /* MKJItemModel.m in Sources */,
+				0C37102B1DF1CDAC00542B5A /* ViewController+MASAdditions.m in Sources */,
 				0C4BB0411DEC71EC00DA8291 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

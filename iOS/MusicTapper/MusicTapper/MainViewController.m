@@ -7,10 +7,16 @@
 //
 
 #import "MainViewController.h"
-#import "ListViewController.h"
+#import "PlayViewController.h"
 #import "Const.h"
+#import "MKJConstant.h"
+#import "MKJItemModel.h"
+#import "MKJMainPopoutView.h"
 
-@interface MainViewController ()
+@interface MainViewController ()<MKJMainPopoutViewDelegate>
+
+@property (nonatomic, strong) MKJMainPopoutView * popView;
+@property (nonatomic, strong) NSMutableArray * dataSource;
 
 @end
 
@@ -18,6 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
+    
     
     UIButton * testBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [testBtn setTitle:@"push" forState:UIControlStateNormal];
@@ -72,8 +82,49 @@
 #pragma mark - Action methods
 
 - (void)push {
-    ListViewController * controller = [[ListViewController alloc] init];
+    [self.popView showInSuperView:self.view];
+}
+
+#pragma mark - MKJMainPopoutViewDelegate
+
+- (void)selectedItem:(MKJItemModel *)item withType:(int)type {
+    
+    TypePlayMode mode = (type == 0 ? TypePlayModeEasy : TypePlayModeHard);
+    PlayViewController * controller = [[PlayViewController alloc] initWithPlayMod:mode songID:item.imageName];
     [self presentViewController:controller animated:YES completion:NULL];
+}
+
+- (void)closePopView {
+    [self.popView removeFromSuperview];
+}
+
+- (MKJMainPopoutView *)popView
+{
+    if (_popView == nil) {
+        _popView = [[MKJMainPopoutView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _popView.dataSource = self.dataSource;
+        _popView.delegate = self;
+    }
+    return _popView;
+}
+
+- (NSMutableArray *)dataSource
+{
+    if (_dataSource == nil) {
+        _dataSource = [[NSMutableArray alloc] init];
+        
+        NSString * plistPath = [[NSBundle mainBundle] pathForResource:@"songList" ofType:@"plist"];
+        NSArray * songs = [[NSArray alloc] initWithContentsOfFile:plistPath];
+        
+        for (NSInteger i = 0; i < 3; i ++) {
+            NSDictionary * dic = [songs objectAtIndex:(i % songs.count)];
+            MKJItemModel *model = [[MKJItemModel alloc] init];
+            model.imageName = [dic objectForKey:@"filename"];
+            model.titleName = [dic objectForKey:@"name"];
+            [_dataSource addObject:model];
+        }
+    }
+    return _dataSource;
 }
 
 @end

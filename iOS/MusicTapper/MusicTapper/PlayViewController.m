@@ -64,7 +64,7 @@
 @end
 
 #define LAYOUT_R    (230 * SCALE)
-#define NOTE_SIZE   (70 * SCALE)
+#define NOTE_SIZE   (78 * SCALE)
 #define MAX_LIFE    10
 
 #define BUTTON_TAG  1000
@@ -221,7 +221,7 @@
                                                                         _timeBarBG.frame.origin.y - 15 * SCALE,
                                                                         40 * SCALE,
                                                                         15 * SCALE)];
-        timeLable.font = [UIFont systemFontOfSize:14];
+        timeLable.font = [UIFont systemFontOfSize:12];
         [self.view addSubview:timeLable];
         self.timeLable = timeLable;
     }
@@ -776,6 +776,7 @@
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"mm:ss"];
     _timeLable.text = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:_myBackMusic.duration - _myBackMusic.currentTime]];
+    [_timeLable sizeToFit];
     
     CGRect frame = _timeBar.frame;
     frame.size.width = _timeBarBG.frame.size.width * _myBackMusic.currentTime / _myBackMusic.duration;
