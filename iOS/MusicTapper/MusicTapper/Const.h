@@ -30,5 +30,6 @@
 #define SCALE           ([UIScreen mainScreen].scale / [UIScreen mainScreen].nativeScale)
 
 #define KEY_OFFSET      @"offset"
+#define KEY_PLAYER_NAME @"playerName"
 
 #endif /* Const_h */

@@ -61,17 +61,6 @@
                                  height * 0.7,
                                  width * 0.2,
                                  height * 0.2);
-    
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.alpha = 1;
-                     }
-                     completion:^(BOOL finished) {
-                         
-                     }];
-    
 }
 
 - (void)buttonClicked:(id)sender {

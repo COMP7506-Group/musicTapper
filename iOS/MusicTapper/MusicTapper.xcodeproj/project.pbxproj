@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C370FEE1DF19C6E00542B5A /* red_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C370FEC1DF19C6E00542B5A /* red_heart.png */; };
+		0C370FEF1DF19C6E00542B5A /* white_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C370FED1DF19C6E00542B5A /* white_heart.png */; };
 		0C4BB0411DEC71EC00DA8291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0401DEC71EC00DA8291 /* main.m */; };
 		0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0431DEC71EC00DA8291 /* AppDelegate.m */; };
 		0C4BB0471DEC71EC00DA8291 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0461DEC71EC00DA8291 /* MainViewController.m */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C370FEC1DF19C6E00542B5A /* red_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red_heart.png; path = Resource/Image/red_heart.png; sourceTree = "<group>"; };
+		0C370FED1DF19C6E00542B5A /* white_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = white_heart.png; path = Resource/Image/white_heart.png; sourceTree = "<group>"; };
 		0C4BB03C1DEC71EC00DA8291 /* MusicTapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4BB0401DEC71EC00DA8291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C4BB0421DEC71EC00DA8291 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -103,6 +107,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C370FF01DF19C7400542B5A /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				0C370FEC1DF19C6E00542B5A /* red_heart.png */,
+				0C370FED1DF19C6E00542B5A /* white_heart.png */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
 		0C4BB0331DEC71EC00DA8291 = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +184,7 @@
 		0C4BB0781DEC727F00DA8291 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0C370FF01DF19C7400542B5A /* Image */,
 				0C4BB0791DEC729F00DA8291 /* Music */,
 				0C4BB07B1DEC72D400DA8291 /* Sound */,
 				0C4BB07A1DEC72BA00DA8291 /* Ryhthm */,
@@ -346,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C4BB0801DEC732200DA8291 /* bad.mp3 in Resources */,
+				0C370FEE1DF19C6E00542B5A /* red_heart.png in Resources */,
 				0C4BB04F1DEC71EC00DA8291 /* LaunchScreen.storyboard in Resources */,
 				0C4BB04C1DEC71EC00DA8291 /* Assets.xcassets in Resources */,
 				0C7577FC1DF054F1000EDA46 /* test.plist in Resources */,
@@ -354,6 +369,7 @@
 				0C4BB04A1DEC71EC00DA8291 /* Main.storyboard in Resources */,
 				0C4BB0811DEC732200DA8291 /* good.mp3 in Resources */,
 				0C4BB0831DEC732E00DA8291 /* 001.plist in Resources */,
+				0C370FEF1DF19C6E00542B5A /* white_heart.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

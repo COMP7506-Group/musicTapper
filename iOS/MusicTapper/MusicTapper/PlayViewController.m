@@ -28,13 +28,16 @@
 @property (nonatomic, strong) UIButton * pauseBtn;
 
 @property (nonatomic, strong) NSString * songID;
-@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * songName;
+@property (nonatomic, strong) NSString * playerName;
 @property (nonatomic) TypePlayMode mode;
 @property (nonatomic) int tempo;
 @property (nonatomic) double pre;
 @property (nonatomic) double offset;
 @property (nonatomic) double diff;
 @property (nonatomic) BOOL isPlaying;
+@property (nonatomic) int life;
+@property (nonatomic) int lifeCombo;
 
 @property (nonatomic) int combo;
 @property (nonatomic) int perfectCount;
@@ -44,10 +47,14 @@
 @property (nonatomic) int score;
 @property (nonatomic) int scoreMax;
 
-@property (nonatomic, strong) UILabel * nameLable;
+@property (nonatomic, strong) UILabel * songNameLable;
+@property (nonatomic, strong) UILabel * playerNameLabel;
+@property (nonatomic, strong) NSArray * lifeArray;
 @property (nonatomic, strong) UILabel * timeLable;
 @property (nonatomic, strong) UILabel * comboLabel;
 @property (nonatomic, strong) UILabel * scoreLabel;
+@property (nonatomic, strong) UIView * timeBarBG;
+@property (nonatomic, strong) UIView * timeBar;
 
 @property (nonatomic, strong) UIView * pauseBG;
 @property (nonatomic, strong) UIButton * backBtn;
@@ -58,6 +65,7 @@
 
 #define LAYOUT_R    (230 * SCALE)
 #define NOTE_SIZE   (70 * SCALE)
+#define MAX_LIFE    10
 
 #define BUTTON_TAG  1000
 
@@ -84,10 +92,11 @@
     NSString * plistPath = [[NSBundle mainBundle] pathForResource:_songID ofType:@"plist"];
     NSDictionary * dic = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSDictionary * info = [dic objectForKey:@"info"];
-    self.name = [info objectForKey:@"name"];
+    self.songName = [info objectForKey:@"name"];
     self.tempo = [(NSNumber *)[info objectForKey:@"tempo"] intValue];
     self.pre = [(NSNumber *)[info objectForKey:@"start"] doubleValue];
     self.notes = [dic objectForKey:@"notes"];
+    self.life = MAX_LIFE;
     if (_mode == TypePlayModeEasy) {
         self.scoreMax = [(NSNumber *)[info objectForKey:@"score_easy"] intValue];
     }
@@ -98,6 +107,8 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSNumber * offset = [defaults objectForKey:KEY_OFFSET];
     self.offset = (offset && _mode != TypePlayModeAuto) ? [offset doubleValue] : 0;
+    NSString * playerName = [defaults objectForKey:KEY_PLAYER_NAME];
+    self.playerName = (playerName && _mode != TypePlayModeAuto) ? [NSString stringWithString:playerName] : @"Noname";
     
     if (!_buttons) {
         NSMutableArray * temp = [[NSMutableArray alloc] init];
@@ -128,25 +139,21 @@
     }
     
     if (!_pauseBtn) {
-        UIButton * pauseBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        pauseBtn.frame = CGRectMake(10 * SCALE, 10 * SCALE, 50 * SCALE, 30 * SCALE);
-        [pauseBtn setTitle:@"Pause" forState:UIControlStateNormal];
+        UIButton * pauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        pauseBtn.layer.borderWidth = 3;
+        pauseBtn.layer.borderColor = [UIColor blueColor].CGColor;
+        pauseBtn.frame = CGRectMake(self.view.frame.size.width - 70 * SCALE,
+                                    20 * SCALE,
+                                    50 * SCALE,
+                                    50 * SCALE);
         [pauseBtn addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:pauseBtn];
         self.pauseBtn = pauseBtn;
     }
     
-    if (!_timeLable) {
-        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 50 * SCALE,
-                                                                        40 * SCALE,
-                                                                        0, 0)];
-        [self.view addSubview:timeLable];
-        self.timeLable = timeLable;
-    }
-    
-    if (!_nameLable) {
+    if (!_songNameLable) {
         UILabel * nameLable = [[UILabel alloc] init];
-        nameLable.text = self.name;
+        nameLable.text = self.songName;
         nameLable.font = [UIFont systemFontOfSize:20];
         [nameLable sizeToFit];
         CGRect frame = nameLable.frame;
@@ -154,7 +161,69 @@
         frame.origin.y = 20 * SCALE;
         nameLable.frame = frame;
         [self.view addSubview:nameLable];
-        self.nameLable = nameLable;
+        self.songNameLable = nameLable;
+    }
+    
+    if (!_playerNameLabel) {
+        UILabel * label = [[UILabel alloc] init];
+        label.text = self.playerName;
+        label.font = [UIFont systemFontOfSize:20];
+        [label sizeToFit];
+        CGRect frame = label.frame;
+        frame.origin.x = 20 * SCALE;
+        frame.origin.y = 20 * SCALE;
+        label.frame = frame;
+        [self.view addSubview:label];
+        self.playerNameLabel = label;
+    }
+    
+    if (!_lifeArray) {
+        NSMutableArray * array = [[NSMutableArray alloc] init];
+        for (int i  = 0; i < MAX_LIFE; i++) {
+            UIButton * heartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [heartBtn setImage:[UIImage imageNamed:@"red_heart"] forState:UIControlStateNormal];
+            [heartBtn setImage:[UIImage imageNamed:@"white_heart"] forState:UIControlStateDisabled];
+            heartBtn.userInteractionEnabled = NO;
+            heartBtn.frame = CGRectMake(20 * SCALE + i * 20 * SCALE,
+                                        CGRectGetMaxY(_playerNameLabel.frame) + 10 * SCALE,
+                                        20 * SCALE,
+                                        20 * SCALE);
+            [array addObject:heartBtn];
+            [self.view addSubview:heartBtn];
+        }
+        _lifeArray = [[NSArray alloc] initWithArray:array];
+    }
+    
+    if (!_timeBarBG) {
+        UIView * view = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 400 * SCALE) / 2,
+                                                                 CGRectGetMaxY(_songNameLable.frame) + 4 * SCALE,
+                                                                 400 * SCALE,
+                                                                 3 * SCALE)];
+        view.layer.cornerRadius = view.frame.size.height / 2;
+        view.backgroundColor = [UIColor yellowColor];
+        [self.view addSubview:view];
+        self.timeBarBG = view;
+    }
+    
+    if (!_timeBar) {
+        UIView * view = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 400 * SCALE) / 2,
+                                                                 CGRectGetMaxY(_songNameLable.frame) + 4 * SCALE,
+                                                                 0,
+                                                                 3 * SCALE)];
+        view.layer.cornerRadius = view.frame.size.height / 2;
+        view.backgroundColor = [UIColor greenColor];
+        [self.view addSubview:view];
+        self.timeBar = view;
+    }
+    
+    if (!_timeLable) {
+        UILabel * timeLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_timeBarBG.frame) - 40 * SCALE,
+                                                                        _timeBarBG.frame.origin.y - 15 * SCALE,
+                                                                        40 * SCALE,
+                                                                        15 * SCALE)];
+        timeLable.font = [UIFont systemFontOfSize:14];
+        [self.view addSubview:timeLable];
+        self.timeLable = timeLable;
     }
     
     if (!_comboLabel) {
@@ -165,10 +234,13 @@
         self.comboLabel = comboLabel;
     }
     
-    if (!_scoreLabel && (_mode == TypePlayModeHard || _mode == TypePlayModeEasy)) {
+    if (!_scoreLabel) {
         UILabel * scoreLabel = [[UILabel alloc] init];
         scoreLabel.font = [UIFont systemFontOfSize:14];
-        scoreLabel.frame = CGRectMake(500 * SCALE, 20 * SCALE, 0, 0);
+        scoreLabel.frame = CGRectMake(self.view.frame.size.width / 2 - 40 * SCALE,
+                                      CGRectGetMaxY(_songNameLable.frame) + 10 * SCALE,
+                                      0,
+                                      0);
         [self.view addSubview:scoreLabel];
         self.scoreLabel = scoreLabel;
     }
@@ -208,8 +280,7 @@
         _backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         _backBtn.layer.borderWidth = 3.0 * SCALE;
         _backBtn.layer.borderColor = [UIColor redColor].CGColor;
-        _backBtn.layer.cornerRadius = 5 * SCALE;
-        _backBtn.backgroundColor = [UIColor redColor];
+        _backBtn.layer.cornerRadius = 8 * SCALE;
         [_backBtn setTitle:@"Back" forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -218,7 +289,7 @@
         _resumeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         _resumeBtn.layer.borderWidth = 3.0 * SCALE;
         _resumeBtn.layer.borderColor = [UIColor redColor].CGColor;
-        _resumeBtn.layer.cornerRadius = 5 * SCALE;
+        _resumeBtn.layer.cornerRadius = 8 * SCALE;
         [_resumeBtn setTitle:@"Resume" forState:UIControlStateNormal];
         [_resumeBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -227,7 +298,7 @@
         _retryBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         _retryBtn.layer.borderWidth = 3.0 * SCALE;
         _retryBtn.layer.borderColor = [UIColor redColor].CGColor;
-        _retryBtn.layer.cornerRadius = 5 * SCALE;
+        _retryBtn.layer.cornerRadius = 8 * SCALE;
         [_retryBtn setTitle:@"Retry" forState:UIControlStateNormal];
         [_retryBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -315,7 +386,16 @@
             [self presentViewController:alertController animated:YES completion:NULL];
         }
         else {
-            ResultView * resultView = [[ResultView alloc] initWithResult:nil];
+            NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
+            [result setObject:[NSNumber numberWithInt:_perfectCount] forKey:KEY_RESULT_PREFECT];
+            [result setObject:[NSNumber numberWithInt:_greatCount] forKey:KEY_RESULT_GREAT];
+            [result setObject:[NSNumber numberWithInt:_goodCount] forKey:KEY_RESULT_GOOD];
+            [result setObject:[NSNumber numberWithInt:_missCount] forKey:KEY_RESULT_MISS];
+            [result setObject:[NSNumber numberWithInt:_score] forKey:KEY_RESULT_SCORE];
+            [result setObject:[NSNumber numberWithInt:_scoreMax] forKey:KEY_RESULT_SCOREMAX];
+            [result setObject:_playerName forKey:KEY_RESULT_NAME];
+            
+            ResultView * resultView = [[ResultView alloc] initWithResult:result];
             resultView.delegate = self;
             [resultView showInView:self.view];
         }
@@ -344,6 +424,12 @@
     _goodCount = 0;
     _missCount = 0;
     _score = 0;
+    _life = 10;
+    _lifeCombo = 0;
+    
+    for (UIButton * heartBtn in _lifeArray) {
+        heartBtn.enabled = YES;
+    }
     
     for (NSMutableArray * array in _tracks) {
         for (NoteView * noteView in array) {
@@ -385,7 +471,7 @@
 }
 
 - (void)pause {
-    if (self.isPlaying == NO) {
+    if (_life != 0 && self.isPlaying == NO) {
         [self resume];
         return;
     }
@@ -427,7 +513,7 @@
                                   topOrigin + btnHeight / 2,
                                   0,
                                   0);
-    [self.view addSubview:_resumeBtn];
+    if (_life > 0) [self.view addSubview:_resumeBtn];
     
     _retryBtn.frame = CGRectMake((self.view.frame.size.width + 2 * btnWidth + 2 * padding) / 2,
                                  topOrigin + btnHeight / 2,
@@ -489,7 +575,6 @@
         [self resume];
     }
     else if (sender == _retryBtn) {
-        [self pause];
         [self retry];
     }
 }
@@ -547,7 +632,16 @@
 - (void)showMiss {
     if (_mode == TypePlayModeTest) return;
     
+    _life--;
+    UIButton * heartBtn = [_lifeArray objectAtIndex:_life];
+    heartBtn.enabled = NO;
+    
+    if (_life == 0) {
+        [self pause];
+    }
+    
     _combo = 0;
+    _lifeCombo = 0;
     [self updateCombo];
     
     UILabel * label = [[UILabel alloc] init];
@@ -596,11 +690,31 @@
         _goodCount++;
         _score += BASE_SCORE * GOOD_RATIO * [self comboRatio:_combo];
         _combo = 0;
+        _lifeCombo = 0;
+        
+        _life--;
+        UIButton * heartBtn = [_lifeArray objectAtIndex:_life];
+        heartBtn.enabled = NO;
+        
+        if (_life == 0) {
+            [self pause];
+        }
     }
     else {
         diff > PERFECT_TIME ? _greatCount++ : _perfectCount++;
         _score += BASE_SCORE * [self comboRatio:_combo] * (diff > PERFECT_TIME ? GREAT_RATIO : PERFECT_RATIO);
         _combo ++;
+        
+        if (_life < 10) {
+            _lifeCombo++;
+            if (_lifeCombo >= 5) {
+                UIButton * heartBtn = [_lifeArray objectAtIndex:_life];
+                heartBtn.enabled = YES;
+                
+                _lifeCombo -= 5;
+                _life ++;
+            }
+        }
     }
     
     [self updateScore];
@@ -659,20 +773,19 @@
 
 - (void)handleDisplayLink:(id)sender {
     
-//    if (self.myBackMusic.currentTime > 10) {
-//        [_myBackMusic stop];
-//        [self audioPlayerDidFinishPlaying:_myBackMusic successfully:YES];
-//        [_displayLink invalidate];
-//    }
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"mm:ss"];
+    _timeLable.text = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:_myBackMusic.duration - _myBackMusic.currentTime]];
     
-    self.timeLable.text = [NSString stringWithFormat:@"%.3f", self.myBackMusic.currentTime];
-    [self.timeLable sizeToFit];
+    CGRect frame = _timeBar.frame;
+    frame.size.width = _timeBarBG.frame.size.width * _myBackMusic.currentTime / _myBackMusic.duration;
+    _timeBar.frame = frame;
     
-    if (_noteFlag >= self.notes.count)
+    if (_noteFlag >= _notes.count)
         return;
     
     
-    NSDictionary * nodeData = self.notes[_noteFlag];
+    NSDictionary * nodeData = _notes[_noteFlag];
     int type = [(NSNumber *)[nodeData objectForKey:@"type"] intValue];
     if ((_mode == TypePlayModeEasy) && type == 2) {
         _noteFlag++;
@@ -682,15 +795,15 @@
     BOOL isAuto = (_mode == TypePlayModeAuto);
     double missTime = isAuto ? 0 : MISS_TIME;
     
-    double timeBegin = [(NSNumber *)[nodeData objectForKey:@"timeBegin"] doubleValue] * 60 / self.tempo + self.pre;
+    double timeBegin = [(NSNumber *)[nodeData objectForKey:@"timeBegin"] doubleValue] * 60 / _tempo + _pre;
     BOOL isLeft = ([(NSNumber *)[nodeData objectForKey:@"timeBegin"] intValue] / 4) % 2 == 0;
     int track = [(NSNumber *)[nodeData objectForKey:@"track"] intValue];
-    if ((timeBegin - DROP_TIME) <= self.myBackMusic.currentTime) {
+    if ((timeBegin - DROP_TIME) <= _myBackMusic.currentTime) {
         int count = isLeft ? 0 : 0;
         while (track > 0) {
             if (track % 2) {
                 NoteView * noteView = [[NoteView alloc] init];
-                double diff = (self.myBackMusic.currentTime - (timeBegin - DROP_TIME));
+                double diff = (_myBackMusic.currentTime - (timeBegin - DROP_TIME));
                 noteView.frame = [self frameWithNoteNum:count progress:(diff/DROP_TIME)];
                 noteView.layer.cornerRadius = noteView.frame.size.width / 2;
                 noteView.layer.borderWidth = 3 * SCALE;
@@ -725,8 +838,10 @@
                                              [self buttonClicked:[_buttons objectAtIndex:noteView.track]];
                                          }
                                          else {
-                                             _missCount ++;
-                                             [self showMiss];
+                                             if (self.isPlaying) {
+                                                 _missCount ++;
+                                                 [self showMiss];
+                                             }
                                          }
                                          
                                          NSMutableArray * notes = [_tracks objectAtIndex:noteView.track];
