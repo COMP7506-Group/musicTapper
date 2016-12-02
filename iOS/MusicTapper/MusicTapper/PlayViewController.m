@@ -11,8 +11,6 @@
 #import "ResultView.h"
 #import "Const.h"
 #import <AVFoundation/AVFoundation.h>
-#import "UIView+EasingFunctions.h"
-#import "easing.h"
 
 
 @interface PlayViewController ()<AVAudioPlayerDelegate, ResultViewDelegate>
@@ -206,6 +204,34 @@
         self.myBackMusic = myBackMusic;
     }
     
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _backBtn.layer.borderWidth = 3.0 * SCALE;
+        _backBtn.layer.borderColor = [UIColor redColor].CGColor;
+        _backBtn.layer.cornerRadius = 5 * SCALE;
+        _backBtn.backgroundColor = [UIColor redColor];
+        [_backBtn setTitle:@"Back" forState:UIControlStateNormal];
+        [_backBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    if (!_resumeBtn) {
+        _resumeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _resumeBtn.layer.borderWidth = 3.0 * SCALE;
+        _resumeBtn.layer.borderColor = [UIColor redColor].CGColor;
+        _resumeBtn.layer.cornerRadius = 5 * SCALE;
+        [_resumeBtn setTitle:@"Resume" forState:UIControlStateNormal];
+        [_resumeBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    if (!_retryBtn) {
+        _retryBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _retryBtn.layer.borderWidth = 3.0 * SCALE;
+        _retryBtn.layer.borderColor = [UIColor redColor].CGColor;
+        _retryBtn.layer.cornerRadius = 5 * SCALE;
+        [_retryBtn setTitle:@"Retry" forState:UIControlStateNormal];
+        [_retryBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
     [self reset];
     
     [_myBackMusic setVolume:0.6];
@@ -388,61 +414,50 @@
     _pauseBG.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     [self.view addSubview:_pauseBG];
     
-    if (!_backBtn) {
-        _backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        _backBtn.layer.borderWidth = 3.0 * SCALE;
-        _backBtn.layer.borderColor = [UIColor redColor].CGColor;
-        _backBtn.layer.cornerRadius = 5 * SCALE;
-        [_backBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    [_backBtn setTitle:@"Back" forState:UIControlStateNormal];
-    _backBtn.frame = CGRectMake((self.view.frame.size.width - 3 * btnWidth - 2 * padding) / 2,
-                                topOrigin,
-                                btnWidth,
-                                btnHeight);
+    _backBtn.frame = CGRectMake((self.view.frame.size.width - 2 * btnWidth - 2 * padding) / 2,
+                                topOrigin + btnHeight / 2,
+                                0,
+                                0);
+    _backBtn.imageEdgeInsets = UIEdgeInsetsMake(- _backBtn.titleLabel.frame.size.height / 2,
+                                                - _backBtn.titleLabel.frame.size.width / 2,
+                                                0, 0);
     [self.view addSubview:_backBtn];
     
-    if (!_resumeBtn) {
-        _resumeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        _resumeBtn.layer.borderWidth = 3.0 * SCALE;
-        _resumeBtn.layer.borderColor = [UIColor redColor].CGColor;
-        _resumeBtn.layer.cornerRadius = 5 * SCALE;
-        [_resumeBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    [_resumeBtn setTitle:@"Resume" forState:UIControlStateNormal];
-    _resumeBtn.frame = CGRectMake((self.view.frame.size.width - btnWidth) / 2,
-                                  topOrigin,
-                                  btnWidth,
-                                  btnHeight);
+    _resumeBtn.frame = CGRectMake(self.view.frame.size.width / 2,
+                                  topOrigin + btnHeight / 2,
+                                  0,
+                                  0);
     [self.view addSubview:_resumeBtn];
     
-    if (!_retryBtn) {
-        _retryBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        _retryBtn.layer.borderWidth = 3.0 * SCALE;
-        _retryBtn.layer.borderColor = [UIColor redColor].CGColor;
-        _retryBtn.layer.cornerRadius = 5 * SCALE;
-        [_retryBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    [_retryBtn setTitle:@"Retry" forState:UIControlStateNormal];
-    _retryBtn.frame = CGRectMake((self.view.frame.size.width + btnWidth + 2 * padding) / 2,
-                                 topOrigin,
-                                 btnWidth,
-                                 btnHeight);
+    _retryBtn.frame = CGRectMake((self.view.frame.size.width + 2 * btnWidth + 2 * padding) / 2,
+                                 topOrigin + btnHeight / 2,
+                                 0,
+                                 0);
     [self.view addSubview:_retryBtn];
     
-    [UIView animateWithDuration:.6 animations:^{
-        
-        [_backBtn setEasingFunction:ElasticEaseOut forKeyPath:@"frame"];
-        _backBtn.frame = CGRectMake((self.view.frame.size.width - 3 * btnWidth - 2 * padding) / 2,
-                                    topOrigin,
-                                    btnWidth,
-                                    btnHeight);
-        
-    } completion:^(BOOL finished) {
-        
-        [_backBtn removeEasingFunctionForKeyPath:@"frame"];
-        
-    }];
+    [UIView animateWithDuration:0.5
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:5
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         _backBtn.frame = CGRectMake((self.view.frame.size.width - 3 * btnWidth - 2 * padding) / 2,
+                                                     topOrigin,
+                                                     btnWidth,
+                                                     btnHeight);
+                         _resumeBtn.frame = CGRectMake((self.view.frame.size.width - btnWidth) / 2,
+                                                       topOrigin,
+                                                       btnWidth,
+                                                       btnHeight);
+                         _retryBtn.frame = CGRectMake((self.view.frame.size.width + btnWidth + 2 * padding) / 2,
+                                                      topOrigin,
+                                                      btnWidth,
+                                                      btnHeight);
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }
+     ];
 }
 
 - (void)resume {

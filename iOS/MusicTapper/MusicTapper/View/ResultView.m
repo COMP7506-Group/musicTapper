@@ -8,7 +8,6 @@
 
 #import "ResultView.h"
 #import "Const.h"
-#import "CAKeyframeAnimation+AHEasing.h"
 
 @interface ResultView()
 
