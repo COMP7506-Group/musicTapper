@@ -32,5 +32,6 @@
 
 #define KEY_OFFSET      @"offset"
 #define KEY_PLAYER_NAME @"playerName"
+#define KEY_VOLUME      @"volume"
 
 #endif /* Const_h */

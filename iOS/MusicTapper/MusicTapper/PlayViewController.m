@@ -307,7 +307,9 @@
     
     [self reset];
     
-    [_myBackMusic setVolume:0.6];
+    
+    float volume = [[defaults objectForKey:KEY_VOLUME] floatValue];
+    [_myBackMusic setVolume:0.6 * volume];
     _myBackMusic.numberOfLoops = 0;
     [_myBackMusic play];
     [_displayLink setPaused:NO];
@@ -668,7 +670,7 @@
     player.delegate = self;
     [self.sounds addObject:player];
     
-    [player setVolume:1];
+    [player setVolume:[[[NSUserDefaults standardUserDefaults] objectForKey:KEY_VOLUME] floatValue]];
     player.numberOfLoops = 0;
     [player play];
 }

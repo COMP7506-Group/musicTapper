@@ -32,24 +32,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    float width = self.view.frame.size.width;
-    float height = self.view.frame.size.height;
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber * volume = [defaults objectForKey:KEY_VOLUME];
+    if (!volume) {
+        [defaults setObject:[NSNumber numberWithFloat:1.0f] forKey:KEY_VOLUME];
+    }
     
     UIImageView * backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainBG"]];
     [backgroundView sizeToFit];
     [self.view addSubview:backgroundView];
     
     _logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
-    _logoView.frame = CGRectMake((width - 120 * SCALE) / 2,
-                                 40 * SCALE,
-                                 120 * SCALE,
-                                 80 * SCALE);
     [self.view addSubview:_logoView];
     
     
     _playerNameLabel = [[UILabel alloc] init];
+    [self.view addSubview:_playerNameLabel];
+    
+    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_playButton];
+    
+    _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_settingButton];
+    
+    _aboutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_aboutButton];
+    
+    
+//    [self convertFile];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
+    float width = self.view.frame.size.width;
+    float height = self.view.frame.size.height;
+
+    _logoView.frame = CGRectMake((width - 120 * SCALE) / 2,
+                                 40 * SCALE,
+                                 120 * SCALE,
+                                 80 * SCALE);
+    
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * playerName = [[defaults objectForKey:KEY_PLAYER_NAME] stringValue];
+    NSString * playerName = [defaults objectForKey:KEY_PLAYER_NAME];
     _playerNameLabel.text = [NSString stringWithFormat:@"Hello, %@!", (playerName ? playerName : @"Player")];
     _playerNameLabel.font = [UIFont systemFontOfSize:20];
     [_playerNameLabel sizeToFit];
@@ -57,9 +81,7 @@
                                         CGRectGetMaxY(_logoView.frame),
                                         _playerNameLabel.frame.size.width,
                                         _playerNameLabel.frame.size.height);
-    [self.view addSubview:_playerNameLabel];
     
-    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playButton setTitle:@"Play" forState:UIControlStateNormal];
     _playButton.layer.borderWidth = 3 * SCALE;
     _playButton.layer.borderColor = [UIColor blackColor].CGColor;
@@ -69,34 +91,26 @@
                                    CGRectGetMaxY(_playerNameLabel.frame) + 10 * SCALE,
                                    100 * SCALE,
                                    44 * SCALE);
-    [self.view addSubview:_playButton];
-    
-    _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+
     [_settingButton setTitle:@"Setting" forState:UIControlStateNormal];
     _settingButton.layer.borderWidth = 3 * SCALE;
     _settingButton.layer.borderColor = [UIColor blackColor].CGColor;
     _settingButton.layer.cornerRadius = 5 * SCALE;
     [_settingButton addTarget:self action:@selector(setting) forControlEvents:UIControlEventTouchUpInside];
     _settingButton.frame = CGRectMake((width - 100 * SCALE) / 2,
-                                   CGRectGetMaxY(_playButton.frame) + 10 * SCALE,
-                                   100 * SCALE,
-                                   44 * SCALE);
-    [self.view addSubview:_settingButton];
+                                      CGRectGetMaxY(_playButton.frame) + 10 * SCALE,
+                                      100 * SCALE,
+                                      44 * SCALE);
     
-    _aboutButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_aboutButton setTitle:@"About" forState:UIControlStateNormal];
     _aboutButton.layer.borderWidth = 3 * SCALE;
     _aboutButton.layer.borderColor = [UIColor blackColor].CGColor;
     _aboutButton.layer.cornerRadius = 5 * SCALE;
     [_aboutButton addTarget:self action:@selector(about) forControlEvents:UIControlEventTouchUpInside];
     _aboutButton.frame = CGRectMake((width - 100 * SCALE) / 2,
-                                   CGRectGetMaxY(_settingButton.frame) + 10 * SCALE,
-                                   100 * SCALE,
-                                   44 * SCALE);
-    [self.view addSubview:_aboutButton];
-    
-    
-//    [self convertFile];
+                                    CGRectGetMaxY(_settingButton.frame) + 10 * SCALE,
+                                    100 * SCALE,
+                                    44 * SCALE);
 }
 
 - (void)didReceiveMemoryWarning {
