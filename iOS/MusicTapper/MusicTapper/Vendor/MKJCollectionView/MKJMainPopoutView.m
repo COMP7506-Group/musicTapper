@@ -125,6 +125,7 @@ static NSString *indentify = @"MKJCollectionViewCell";
     MKJItemModel *model = self.dataSource[indexPath.item];
     MKJCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:indentify forIndexPath:indexPath];
     cell.heroImageVIew.image = [UIImage imageNamed:model.imageName];
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
