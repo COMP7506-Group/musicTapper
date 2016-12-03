@@ -48,6 +48,12 @@
 		0C3710B01DF28ABE00542B5A /* miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710AC1DF28ABE00542B5A /* miss.png */; };
 		0C3710B11DF28ABE00542B5A /* perfect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710AD1DF28ABE00542B5A /* perfect.png */; };
 		0C3710B31DF290A400542B5A /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710B21DF290A400542B5A /* logo.png */; };
+		0C3710B61DF2AB3800542B5A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710B51DF2AB3800542B5A /* SettingViewController.m */; };
+		0C3710B91DF2AB8F00542B5A /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3710B81DF2AB8F00542B5A /* AboutViewController.m */; };
+		0C3710BF1DF2B49100542B5A /* showshowa.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710BB1DF2B49100542B5A /* showshowa.JPG */; };
+		0C3710C01DF2B49100542B5A /* soso.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710BC1DF2B49100542B5A /* soso.JPG */; };
+		0C3710C11DF2B49100542B5A /* szy.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710BD1DF2B49100542B5A /* szy.JPG */; };
+		0C3710C21DF2B49100542B5A /* ZYZZ1103.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710BE1DF2B49100542B5A /* ZYZZ1103.JPG */; };
 		0C4BB0411DEC71EC00DA8291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0401DEC71EC00DA8291 /* main.m */; };
 		0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0431DEC71EC00DA8291 /* AppDelegate.m */; };
 		0C4BB0471DEC71EC00DA8291 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0461DEC71EC00DA8291 /* MainViewController.m */; };
@@ -148,6 +154,14 @@
 		0C3710AC1DF28ABE00542B5A /* miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = miss.png; path = Resource/Image/miss.png; sourceTree = "<group>"; };
 		0C3710AD1DF28ABE00542B5A /* perfect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = perfect.png; path = Resource/Image/perfect.png; sourceTree = "<group>"; };
 		0C3710B21DF290A400542B5A /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = Resource/Image/logo.png; sourceTree = "<group>"; };
+		0C3710B41DF2AB3800542B5A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		0C3710B51DF2AB3800542B5A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		0C3710B71DF2AB8F00542B5A /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		0C3710B81DF2AB8F00542B5A /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		0C3710BB1DF2B49100542B5A /* showshowa.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = showshowa.JPG; path = Resource/Image/showshowa.JPG; sourceTree = "<group>"; };
+		0C3710BC1DF2B49100542B5A /* soso.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = soso.JPG; path = Resource/Image/soso.JPG; sourceTree = "<group>"; };
+		0C3710BD1DF2B49100542B5A /* szy.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = szy.JPG; path = Resource/Image/szy.JPG; sourceTree = "<group>"; };
+		0C3710BE1DF2B49100542B5A /* ZYZZ1103.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ZYZZ1103.JPG; path = Resource/Image/ZYZZ1103.JPG; sourceTree = "<group>"; };
 		0C4BB03C1DEC71EC00DA8291 /* MusicTapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4BB0401DEC71EC00DA8291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C4BB0421DEC71EC00DA8291 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -210,6 +224,7 @@
 				0C3710A51DF2875500542B5A /* BG */,
 				0C3710A61DF2876300542B5A /* button */,
 				0C3710A91DF28AAA00542B5A /* combo */,
+				0C3710BA1DF2B47100542B5A /* avatar */,
 				0C37108D1DF2743400542B5A /* Rank_A.png */,
 				0C37108E1DF2743400542B5A /* Rank_B.png */,
 				0C37108F1DF2743400542B5A /* Rank_C.png */,
@@ -316,6 +331,17 @@
 				0C3710AD1DF28ABE00542B5A /* perfect.png */,
 			);
 			name = combo;
+			sourceTree = "<group>";
+		};
+		0C3710BA1DF2B47100542B5A /* avatar */ = {
+			isa = PBXGroup;
+			children = (
+				0C3710BB1DF2B49100542B5A /* showshowa.JPG */,
+				0C3710BC1DF2B49100542B5A /* soso.JPG */,
+				0C3710BD1DF2B49100542B5A /* szy.JPG */,
+				0C3710BE1DF2B49100542B5A /* ZYZZ1103.JPG */,
+			);
+			name = avatar;
 			sourceTree = "<group>";
 		};
 		0C4BB0331DEC71EC00DA8291 = {
@@ -427,6 +453,10 @@
 			children = (
 				0C4BB0451DEC71EC00DA8291 /* MainViewController.h */,
 				0C4BB0461DEC71EC00DA8291 /* MainViewController.m */,
+				0C3710B41DF2AB3800542B5A /* SettingViewController.h */,
+				0C3710B51DF2AB3800542B5A /* SettingViewController.m */,
+				0C3710B71DF2AB8F00542B5A /* AboutViewController.h */,
+				0C3710B81DF2AB8F00542B5A /* AboutViewController.m */,
 				0C4BB0751DEC724400DA8291 /* PlayViewController.h */,
 				0C4BB0761DEC724400DA8291 /* PlayViewController.m */,
 			);
@@ -572,8 +602,11 @@
 				0C3710771DF1DB6700542B5A /* 001.png in Resources */,
 				0C4BB04F1DEC71EC00DA8291 /* LaunchScreen.storyboard in Resources */,
 				0C3710B11DF28ABE00542B5A /* perfect.png in Resources */,
+				0C3710BF1DF2B49100542B5A /* showshowa.JPG in Resources */,
 				0C3710991DF281DB00542B5A /* Resume.png in Resources */,
 				0C3710931DF2743400542B5A /* Rank_C.png in Resources */,
+				0C3710C21DF2B49100542B5A /* ZYZZ1103.JPG in Resources */,
+				0C3710C11DF2B49100542B5A /* szy.JPG in Resources */,
 				0C3710661DF1CE0700542B5A /* MKJCollectionViewCell.xib in Resources */,
 				0C3710A41DF2875100542B5A /* playBG.png in Resources */,
 				0C4BB04C1DEC71EC00DA8291 /* Assets.xcassets in Resources */,
@@ -585,6 +618,7 @@
 				0C3710B01DF28ABE00542B5A /* miss.png in Resources */,
 				0C3710911DF2743400542B5A /* Rank_A.png in Resources */,
 				0C3710981DF281DB00542B5A /* Back.png in Resources */,
+				0C3710C01DF2B49100542B5A /* soso.JPG in Resources */,
 				0C4BB07D1DEC730900DA8291 /* 001.mp3 in Resources */,
 				0C7577FA1DF054DF000EDA46 /* test.mp3 in Resources */,
 				0C37109A1DF281DB00542B5A /* Retry.png in Resources */,
@@ -631,6 +665,7 @@
 				0C7577F01DF039DC000EDA46 /* ResultView.m in Sources */,
 				0C3710231DF1CDAC00542B5A /* MASConstraint.m in Sources */,
 				0C3710701DF1CE7E00542B5A /* NSArray+Extension.m in Sources */,
+				0C3710B91DF2AB8F00542B5A /* AboutViewController.m in Sources */,
 				0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */,
 				0C3710261DF1CDAC00542B5A /* MASViewAttribute.m in Sources */,
 				0C3710291DF1CDAC00542B5A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -643,6 +678,7 @@
 				0C3710691DF1CE0700542B5A /* MKJItemModel.m in Sources */,
 				0C37102B1DF1CDAC00542B5A /* ViewController+MASAdditions.m in Sources */,
 				0C4BB0411DEC71EC00DA8291 /* main.m in Sources */,
+				0C3710B61DF2AB3800542B5A /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

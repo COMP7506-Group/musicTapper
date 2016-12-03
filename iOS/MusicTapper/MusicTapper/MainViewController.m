@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "PlayViewController.h"
+#import "SettingViewController.h"
+#import "AboutViewController.h"
 #import "Const.h"
 #import "MKJConstant.h"
 #import "MKJItemModel.h"
@@ -140,11 +142,13 @@
 }
 
 - (void)setting {
-    
+    SettingViewController * controller = [[SettingViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:NULL];
 }
 
 - (void)about {
-    
+    AboutViewController * controller = [[AboutViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:NULL];
 }
 
 #pragma mark - MKJMainPopoutViewDelegate
