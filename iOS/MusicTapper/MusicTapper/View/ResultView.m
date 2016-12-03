@@ -173,6 +173,26 @@
     
     self.frame = CGRectMake(0, 0, width, height);
     [view addSubview:self];
+    
+    _rankView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 70 * SCALE - 150 * SCALE - 450 * SCALE,
+                                 100 * SCALE - 450 * SCALE,
+                                 1050 * SCALE,
+                                 1050 * SCALE);
+    
+    [UIView animateWithDuration:0.7
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:10
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         _rankView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 70 * SCALE - 150 * SCALE,
+                                                      100 * SCALE,
+                                                      150 * SCALE,
+                                                      150 * SCALE);
+                     }
+                     completion:^(BOOL finished) {
+                         //nothing
+                     }];
 }
 
 - (void)buttonClicked:(id)sender {
