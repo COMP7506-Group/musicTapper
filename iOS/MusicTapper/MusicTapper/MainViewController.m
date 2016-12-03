@@ -47,15 +47,34 @@
     
     
     _playerNameLabel = [[UILabel alloc] init];
+    _playerNameLabel.font = [UIFont systemFontOfSize:20];
     [self.view addSubview:_playerNameLabel];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_playButton setTitle:@"Play" forState:UIControlStateNormal];
+    _playButton.layer.borderWidth = 3 * SCALE;
+    _playButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _playButton.layer.cornerRadius = 5 * SCALE;
+    [_playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_playButton];
     
     _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _settingButton.layer.borderWidth = 3 * SCALE;
+    _settingButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _settingButton.layer.cornerRadius = 5 * SCALE;
+    [_settingButton setTitle:@"Setting" forState:UIControlStateNormal];
+    [_settingButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_settingButton addTarget:self action:@selector(setting) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_settingButton];
     
     _aboutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_aboutButton setTitle:@"About" forState:UIControlStateNormal];
+    _aboutButton.layer.borderWidth = 3 * SCALE;
+    _aboutButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _aboutButton.layer.cornerRadius = 5 * SCALE;
+    [_aboutButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_aboutButton addTarget:self action:@selector(about) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_aboutButton];
     
     
@@ -67,48 +86,32 @@
     float width = self.view.frame.size.width;
     float height = self.view.frame.size.height;
 
-    _logoView.frame = CGRectMake((width - 120 * SCALE) / 2,
-                                 40 * SCALE,
-                                 120 * SCALE,
-                                 80 * SCALE);
+    _logoView.frame = CGRectMake(100 * SCALE,
+                                 (height - 160 * SCALE) / 2,
+                                 200 * SCALE,
+                                 160 * SCALE);
     
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSString * playerName = [defaults objectForKey:KEY_PLAYER_NAME];
     _playerNameLabel.text = [NSString stringWithFormat:@"Hello, %@!", (playerName ? playerName : @"Player")];
-    _playerNameLabel.font = [UIFont systemFontOfSize:20];
     [_playerNameLabel sizeToFit];
     _playerNameLabel.frame = CGRectMake((width - _playerNameLabel.frame.size.width) / 2,
-                                        CGRectGetMaxY(_logoView.frame),
+                                        80 * SCALE,
                                         _playerNameLabel.frame.size.width,
                                         _playerNameLabel.frame.size.height);
     
-    [_playButton setTitle:@"Play" forState:UIControlStateNormal];
-    _playButton.layer.borderWidth = 3 * SCALE;
-    _playButton.layer.borderColor = [UIColor blackColor].CGColor;
-    _playButton.layer.cornerRadius = 5 * SCALE;
-    [_playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
-    _playButton.frame = CGRectMake((width - 100 * SCALE) / 2,
-                                   CGRectGetMaxY(_playerNameLabel.frame) + 10 * SCALE,
+    _playButton.frame = CGRectMake(width / 2 + 100 * SCALE,
+                                   (height - 3 * 44 * SCALE - 2 * 15 * SCALE) / 2,
                                    100 * SCALE,
                                    44 * SCALE);
 
-    [_settingButton setTitle:@"Setting" forState:UIControlStateNormal];
-    _settingButton.layer.borderWidth = 3 * SCALE;
-    _settingButton.layer.borderColor = [UIColor blackColor].CGColor;
-    _settingButton.layer.cornerRadius = 5 * SCALE;
-    [_settingButton addTarget:self action:@selector(setting) forControlEvents:UIControlEventTouchUpInside];
-    _settingButton.frame = CGRectMake((width - 100 * SCALE) / 2,
-                                      CGRectGetMaxY(_playButton.frame) + 10 * SCALE,
+    _settingButton.frame = CGRectMake(width / 2 + 100 * SCALE,
+                                      CGRectGetMaxY(_playButton.frame) + 15 * SCALE,
                                       100 * SCALE,
                                       44 * SCALE);
     
-    [_aboutButton setTitle:@"About" forState:UIControlStateNormal];
-    _aboutButton.layer.borderWidth = 3 * SCALE;
-    _aboutButton.layer.borderColor = [UIColor blackColor].CGColor;
-    _aboutButton.layer.cornerRadius = 5 * SCALE;
-    [_aboutButton addTarget:self action:@selector(about) forControlEvents:UIControlEventTouchUpInside];
-    _aboutButton.frame = CGRectMake((width - 100 * SCALE) / 2,
-                                    CGRectGetMaxY(_settingButton.frame) + 10 * SCALE,
+    _aboutButton.frame = CGRectMake(width / 2 + 100 * SCALE,
+                                    CGRectGetMaxY(_settingButton.frame) + 15 * SCALE,
                                     100 * SCALE,
                                     44 * SCALE);
 }

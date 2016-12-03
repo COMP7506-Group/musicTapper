@@ -73,9 +73,9 @@ static NSString *indentify = @"MKJCollectionViewCell";
     [self.underBackView addSubview:self.closeButton];
     [self.closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.right.equalTo(self.underBackView.mas_right).with.offset(-5 * SCALE);
-        make.top.equalTo(self.underBackView.mas_top).with.offset(0);
-        make.size.mas_equalTo(CGSizeMake(30 * SCALE, 30 * SCALE));
+        make.right.equalTo(self.underBackView.mas_right).with.offset(- 10 * SCALE);
+        make.top.equalTo(self.underBackView.mas_top).with.offset(10 * SCALE);
+        make.size.mas_equalTo(CGSizeMake(50 * SCALE, 50 * SCALE));
         
     }];
     
@@ -172,7 +172,7 @@ static NSString *indentify = @"MKJCollectionViewCell";
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.backgroundColor = [UIColor whiteColor];
         _nameLabel.font = [UIFont boldSystemFontOfSize:20];
-        _nameLabel.textColor = [UIColor blueColor];
+        _nameLabel.textColor = [UIColor blackColor];
         _nameLabel.layer.cornerRadius = 5.0f * SCALE;
         _nameLabel.layer.borderColor = [UIColor blackColor].CGColor;
         _nameLabel.layer.borderWidth = 2.0f * SCALE;
@@ -237,7 +237,6 @@ static NSString *indentify = @"MKJCollectionViewCell";
 {
     if (_closeButton == nil) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _closeButton.backgroundColor = [UIColor whiteColor];
         [_closeButton setImage:[UIImage imageNamed:@"Close"] forState:UIControlStateNormal];
         [_closeButton addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
     }

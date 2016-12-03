@@ -35,10 +35,10 @@
     _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_closeButton setImage:[UIImage imageNamed:@"Close"] forState:UIControlStateNormal];
     [_closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    _closeButton.frame = CGRectMake(self.view.frame.size.width - 40 * SCALE,
+    _closeButton.frame = CGRectMake(self.view.frame.size.width - 60 * SCALE,
                                     10 * SCALE,
-                                    30 * SCALE,
-                                    30 * SCALE);
+                                    50 * SCALE,
+                                    50 * SCALE);
     [self.view addSubview:_closeButton];
     
     _titleLabel = [[UILabel alloc] init];

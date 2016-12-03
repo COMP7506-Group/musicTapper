@@ -71,6 +71,8 @@
 
 #define BUTTON_TAG  1000
 
+#define COLOR_ARRAY [NSArray arrayWithObjects:RGB(123, 167, 96, 1), RGB(243, 106, 53, 1), RGB(253, 245, 160, 1), RGB(151, 211, 207, 1), nil]
+
 @implementation PlayViewController
 
 - (id)initWithPlayMod:(TypePlayMode)mode songID:(NSString *)songID {
@@ -117,8 +119,9 @@
         for (int i = 0; i < 4; i++) {
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.layer.borderWidth = 3.0 * SCALE;
-            button.layer.borderColor = [UIColor blueColor].CGColor;
+            button.layer.borderColor = [UIColor whiteColor].CGColor;
             button.layer.cornerRadius = NOTE_SIZE / 2;
+            [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"note%d", i+1]] forState:UIControlStateNormal];
             button.frame = [self frameWithNoteNum:i progress:1];
             button.tag = BUTTON_TAG + i;
             button.clipsToBounds = NO;
@@ -144,6 +147,7 @@
     if (!_pauseBtn) {
         UIButton * pauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [pauseBtn setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
+        pauseBtn.backgroundColor = [UIColor clearColor];
         pauseBtn.frame = CGRectMake(self.view.frame.size.width - 70 * SCALE,
                                     20 * SCALE,
                                     50 * SCALE,
@@ -154,22 +158,24 @@
     }
     
     if (!_songNameLable) {
-        UILabel * nameLable = [[UILabel alloc] init];
-        nameLable.text = self.songName;
-        nameLable.font = [UIFont systemFontOfSize:20];
-        [nameLable sizeToFit];
-        CGRect frame = nameLable.frame;
+        UILabel * nameLabel = [[UILabel alloc] init];
+        nameLabel.text = self.songName;
+        nameLabel.font = [UIFont systemFontOfSize:20];
+        nameLabel.textColor = [UIColor whiteColor];
+        [nameLabel sizeToFit];
+        CGRect frame = nameLabel.frame;
         frame.origin.x = (self.view.frame.size.width - frame.size.width) / 2;
         frame.origin.y = 20 * SCALE;
-        nameLable.frame = frame;
-        [self.view addSubview:nameLable];
-        self.songNameLable = nameLable;
+        nameLabel.frame = frame;
+        [self.view addSubview:nameLabel];
+        self.songNameLable = nameLabel;
     }
     
     if (!_playerNameLabel) {
         UILabel * label = [[UILabel alloc] init];
         label.text = self.playerName;
         label.font = [UIFont systemFontOfSize:20];
+        label.textColor = [UIColor whiteColor];
         [label sizeToFit];
         CGRect frame = label.frame;
         frame.origin.x = 20 * SCALE;
@@ -202,7 +208,9 @@
                                                                  400 * SCALE,
                                                                  3 * SCALE)];
         view.layer.cornerRadius = view.frame.size.height / 2;
-        view.backgroundColor = RGB(36, 39, 48, 1);
+        view.backgroundColor = RGB(230, 230, 230, 1);
+        view.layer.borderWidth = 1 * SCALE;
+        view.layer.borderColor = RGB(180, 180, 180, 1).CGColor;
         [self.view addSubview:view];
         self.timeBarBG = view;
     }
@@ -223,6 +231,7 @@
                                                                         _timeBarBG.frame.origin.y - 15 * SCALE,
                                                                         40 * SCALE,
                                                                         15 * SCALE)];
+        timeLable.textColor = [UIColor whiteColor];
         timeLable.font = [UIFont systemFontOfSize:12];
         [self.view addSubview:timeLable];
         self.timeLable = timeLable;
@@ -230,6 +239,7 @@
     
     if (!_comboLabel) {
         UILabel * comboLabel = [[UILabel alloc] init];
+        comboLabel.textColor = [UIColor whiteColor];
         comboLabel.font = [UIFont systemFontOfSize:18];
         comboLabel.alpha = 0;
         [self.view addSubview:comboLabel];
@@ -238,6 +248,7 @@
     
     if (!_scoreLabel) {
         UILabel * scoreLabel = [[UILabel alloc] init];
+        scoreLabel.textColor = [UIColor whiteColor];
         scoreLabel.font = [UIFont systemFontOfSize:14];
         scoreLabel.frame = CGRectMake(self.view.frame.size.width / 2 - 40 * SCALE,
                                       CGRectGetMaxY(_songNameLable.frame) + 10 * SCALE,
@@ -281,7 +292,7 @@
     if (!_backBtn) {
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _backBtn.layer.borderWidth = 3.0 * SCALE;
-        _backBtn.layer.borderColor = [UIColor blackColor].CGColor;
+        _backBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _backBtn.layer.cornerRadius = 8 * SCALE;
         [_backBtn setImage:[UIImage imageNamed:@"Back"] forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
@@ -290,7 +301,7 @@
     if (!_resumeBtn) {
         _resumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _resumeBtn.layer.borderWidth = 3.0 * SCALE;
-        _resumeBtn.layer.borderColor = [UIColor blackColor].CGColor;
+        _resumeBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _resumeBtn.layer.cornerRadius = 8 * SCALE;
         [_resumeBtn setImage:[UIImage imageNamed:@"Resume"] forState:UIControlStateNormal];
         [_resumeBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
@@ -299,7 +310,7 @@
     if (!_retryBtn) {
         _retryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _retryBtn.layer.borderWidth = 3.0 * SCALE;
-        _retryBtn.layer.borderColor = [UIColor blackColor].CGColor;
+        _retryBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _retryBtn.layer.cornerRadius = 8 * SCALE;
         [_retryBtn setImage:[UIImage imageNamed:@"Retry"] forState:UIControlStateNormal];
         [_retryBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
@@ -502,7 +513,7 @@
     
     if (_life == 0) return;
     
-    float btnWidth = 80 * SCALE;
+    float btnWidth = 100 * SCALE;
     float btnHeight = 44 * SCALE;
     float padding = 50 * SCALE;
     float topOrigin = 250 * SCALE;
@@ -853,7 +864,7 @@
                 noteView.frame = [self frameWithNoteNum:count progress:(diff/DROP_TIME)];
                 noteView.layer.cornerRadius = noteView.frame.size.width / 2;
                 noteView.layer.borderWidth = 3 * SCALE;
-                noteView.layer.borderColor = [UIColor redColor].CGColor;
+                noteView.layer.borderColor = ((UIColor *)[COLOR_ARRAY objectAtIndex:count]).CGColor;
                 noteView.track = count;
                 noteView.timePoint = (NSTimeInterval)timeBegin;
                 noteView.isTapped = NO;

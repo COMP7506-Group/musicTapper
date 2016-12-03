@@ -44,7 +44,7 @@
         float labelHeight = 30 * SCALE;
         
         UIView * groupBG = [[UIView alloc] init];
-        groupBG.backgroundColor = RGB(200, 200, 200, 1);
+        groupBG.backgroundColor = RGB(0x66, 0xFF, 0xCC, 1);
         groupBG.layer.cornerRadius = 10 * SCALE;
         groupBG.frame = CGRectMake(left - 10 * SCALE,
                                    top - 10 * SCALE,
@@ -129,6 +129,7 @@
         _scoreLabel = [[UILabel alloc] init];
         _scoreLabel.font = [UIFont systemFontOfSize:24];
         _scoreLabel.text = [NSString stringWithFormat:@"%d", score];
+        _scoreLabel.textColor = [UIColor yellowColor];
         [_scoreLabel sizeToFit];
         _scoreLabel.frame = CGRectMake(_scoreImageView.center.x - _scoreLabel.frame.size.width / 2,
                                        CGRectGetMaxY(_scoreImageView.frame) + 30 * SCALE,
@@ -138,7 +139,7 @@
         [self addSubview:_scoreLabel];
         
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backBtn.layer.borderColor = [UIColor blackColor].CGColor;
+        _backBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _backBtn.layer.borderWidth = 3 * SCALE;
         _backBtn.layer.cornerRadius = 8 * SCALE;
         [_backBtn setImage:[UIImage imageNamed:@"Back"] forState:UIControlStateNormal];
@@ -150,7 +151,7 @@
         [self addSubview:_backBtn];
         
         _retryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _retryBtn.layer.borderColor = [UIColor blackColor].CGColor;
+        _retryBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _retryBtn.layer.borderWidth = 3 * SCALE;
         _retryBtn.layer.cornerRadius = 8 * SCALE;
         [_retryBtn setImage:[UIImage imageNamed:@"Retry"] forState:UIControlStateNormal];

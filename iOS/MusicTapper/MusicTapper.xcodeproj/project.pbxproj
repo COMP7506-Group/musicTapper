@@ -68,6 +68,10 @@
 		0C4BB0811DEC732200DA8291 /* good.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C4BB07F1DEC732200DA8291 /* good.mp3 */; };
 		0C4BB0831DEC732E00DA8291 /* 001.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C4BB0821DEC732E00DA8291 /* 001.plist */; };
 		0C4BB08B1DEC77F700DA8291 /* NoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB08A1DEC77F700DA8291 /* NoteView.m */; };
+		0C6BB1E01DF2F6CF00432F9A /* note1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6BB1DC1DF2F6CF00432F9A /* note1.png */; };
+		0C6BB1E11DF2F6CF00432F9A /* note2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6BB1DD1DF2F6CF00432F9A /* note2.png */; };
+		0C6BB1E21DF2F6CF00432F9A /* note3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6BB1DE1DF2F6CF00432F9A /* note3.png */; };
+		0C6BB1E31DF2F6CF00432F9A /* note4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6BB1DF1DF2F6CF00432F9A /* note4.png */; };
 		0C7577F01DF039DC000EDA46 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7577EF1DF039DC000EDA46 /* ResultView.m */; };
 		0C7577FA1DF054DF000EDA46 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C7577F91DF054DF000EDA46 /* test.mp3 */; };
 		0C7577FC1DF054F1000EDA46 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C7577FB1DF054F1000EDA46 /* test.plist */; };
@@ -187,6 +191,10 @@
 		0C4BB0881DEC778A00DA8291 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		0C4BB0891DEC77F700DA8291 /* NoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteView.h; path = View/NoteView.h; sourceTree = "<group>"; };
 		0C4BB08A1DEC77F700DA8291 /* NoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteView.m; path = View/NoteView.m; sourceTree = "<group>"; };
+		0C6BB1DC1DF2F6CF00432F9A /* note1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = note1.png; path = Resource/Image/notes/note1.png; sourceTree = "<group>"; };
+		0C6BB1DD1DF2F6CF00432F9A /* note2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = note2.png; path = Resource/Image/notes/note2.png; sourceTree = "<group>"; };
+		0C6BB1DE1DF2F6CF00432F9A /* note3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = note3.png; path = Resource/Image/notes/note3.png; sourceTree = "<group>"; };
+		0C6BB1DF1DF2F6CF00432F9A /* note4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = note4.png; path = Resource/Image/notes/note4.png; sourceTree = "<group>"; };
 		0C7577EE1DF039DC000EDA46 /* ResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultView.h; path = View/ResultView.h; sourceTree = "<group>"; };
 		0C7577EF1DF039DC000EDA46 /* ResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResultView.m; path = View/ResultView.m; sourceTree = "<group>"; };
 		0C7577F91DF054DF000EDA46 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = test.mp3; path = Resource/Music/test.mp3; sourceTree = "<group>"; };
@@ -221,6 +229,7 @@
 		0C370FF01DF19C7400542B5A /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				0C6BB1E41DF2F6D200432F9A /* notes */,
 				0C3710A51DF2875500542B5A /* BG */,
 				0C3710A61DF2876300542B5A /* button */,
 				0C3710A91DF28AAA00542B5A /* combo */,
@@ -484,6 +493,17 @@
 			name = Vendor;
 			sourceTree = "<group>";
 		};
+		0C6BB1E41DF2F6D200432F9A /* notes */ = {
+			isa = PBXGroup;
+			children = (
+				0C6BB1DC1DF2F6CF00432F9A /* note1.png */,
+				0C6BB1DD1DF2F6CF00432F9A /* note2.png */,
+				0C6BB1DE1DF2F6CF00432F9A /* note3.png */,
+				0C6BB1DF1DF2F6CF00432F9A /* note4.png */,
+			);
+			name = notes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -606,13 +626,17 @@
 				0C3710991DF281DB00542B5A /* Resume.png in Resources */,
 				0C3710931DF2743400542B5A /* Rank_C.png in Resources */,
 				0C3710C21DF2B49100542B5A /* ZYZZ1103.JPG in Resources */,
+				0C6BB1E21DF2F6CF00432F9A /* note3.png in Resources */,
 				0C3710C11DF2B49100542B5A /* szy.JPG in Resources */,
 				0C3710661DF1CE0700542B5A /* MKJCollectionViewCell.xib in Resources */,
+				0C6BB1E11DF2F6CF00432F9A /* note2.png in Resources */,
 				0C3710A41DF2875100542B5A /* playBG.png in Resources */,
 				0C4BB04C1DEC71EC00DA8291 /* Assets.xcassets in Resources */,
 				0C3710A31DF2875100542B5A /* mainBG.png in Resources */,
 				0C37107B1DF26FCE00542B5A /* score.png in Resources */,
+				0C6BB1E01DF2F6CF00432F9A /* note1.png in Resources */,
 				0C37109C1DF2857500542B5A /* Close.png in Resources */,
+				0C6BB1E31DF2F6CF00432F9A /* note4.png in Resources */,
 				0C3710AF1DF28ABE00542B5A /* great.png in Resources */,
 				0C7577FC1DF054F1000EDA46 /* test.plist in Resources */,
 				0C3710B01DF28ABE00542B5A /* miss.png in Resources */,
