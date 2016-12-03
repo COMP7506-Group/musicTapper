@@ -28,6 +28,7 @@
 #define COMBO_401       1.25
 
 #define SCALE           ([UIScreen mainScreen].scale / [UIScreen mainScreen].nativeScale)
+#define RGB(r,g,b,a)    [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
 
 #define KEY_OFFSET      @"offset"
 #define KEY_PLAYER_NAME @"playerName"

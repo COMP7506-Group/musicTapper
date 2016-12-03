@@ -40,6 +40,7 @@
 @property (nonatomic) int lifeCombo;
 
 @property (nonatomic) int combo;
+@property (nonatomic) int maxCombo;
 @property (nonatomic) int perfectCount;
 @property (nonatomic) int greatCount;
 @property (nonatomic) int goodCount;
@@ -55,6 +56,7 @@
 @property (nonatomic, strong) UILabel * scoreLabel;
 @property (nonatomic, strong) UIView * timeBarBG;
 @property (nonatomic, strong) UIView * timeBar;
+@property (nonatomic, strong) ResultView * resultView;
 
 @property (nonatomic, strong) UIView * pauseBG;
 @property (nonatomic, strong) UIButton * backBtn;
@@ -107,7 +109,7 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSNumber * offset = [defaults objectForKey:KEY_OFFSET];
     self.offset = (offset && _mode != TypePlayModeAuto) ? [offset doubleValue] : 0;
-    NSString * playerName = [defaults objectForKey:KEY_PLAYER_NAME];
+    NSString * playerName = [[defaults objectForKey:KEY_PLAYER_NAME] stringValue];
     self.playerName = (playerName && _mode != TypePlayModeAuto) ? [NSString stringWithString:playerName] : @"Noname";
     
     if (!_buttons) {
@@ -119,6 +121,7 @@
             button.layer.cornerRadius = NOTE_SIZE / 2;
             button.frame = [self frameWithNoteNum:i progress:1];
             button.tag = BUTTON_TAG + i;
+            button.clipsToBounds = NO;
             
             if (_mode != TypePlayModeAuto) {
                 [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchDown];
@@ -393,11 +396,18 @@
             [result setObject:[NSNumber numberWithInt:_missCount] forKey:KEY_RESULT_MISS];
             [result setObject:[NSNumber numberWithInt:_score] forKey:KEY_RESULT_SCORE];
             [result setObject:[NSNumber numberWithInt:_scoreMax] forKey:KEY_RESULT_SCOREMAX];
+            [result setObject:[NSNumber numberWithInt:_maxCombo] forKey:KEY_RESULT_COMBO];
             [result setObject:_playerName forKey:KEY_RESULT_NAME];
+            
+            if (_resultView) {
+                _resultView.delegate = nil;
+                self.resultView = nil;
+            }
             
             ResultView * resultView = [[ResultView alloc] initWithResult:result];
             resultView.delegate = self;
-            [resultView showInView:self.view];
+            self.resultView = resultView;
+            [_resultView showInView:self.view];
         }
     }
 }
@@ -418,6 +428,7 @@
 - (void)reset {
     _noteFlag = 0;
     _combo = 0;
+    _maxCombo = 0;
     _diff = 0;
     _perfectCount = 0;
     _greatCount = 0;
@@ -587,6 +598,8 @@
     UIButton * button = (UIButton *)sender;
     int track = (int) (button.tag - BUTTON_TAG);
     
+    [self playBeatEffect:button];
+    
     NSMutableArray * notes = [_tracks objectAtIndex:track];
     
     NoteView * targetView;
@@ -614,6 +627,38 @@
         [targetView removeFromSuperview];
         [notes removeObject:targetView];
     }
+}
+
+- (void)playBeatEffect:(UIButton *)button {
+    UIView * ring = [[UIView alloc] init];
+    ring.layer.borderWidth = 2 * SCALE;
+    ring.layer.borderColor = RGB(0x66, 0xCC, 0xFF, 0.8).CGColor;
+    ring.frame = CGRectMake(0, 0, NOTE_SIZE, NOTE_SIZE);
+    ring.userInteractionEnabled = NO;
+    [button addSubview:ring];
+    
+    CABasicAnimation * cornerAnimation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
+    cornerAnimation.duration = 0.3;
+    cornerAnimation.fromValue = @(NOTE_SIZE / 2);
+    cornerAnimation.toValue = @(NOTE_SIZE);
+    cornerAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    cornerAnimation.removedOnCompletion = NO;
+    cornerAnimation.fillMode = kCAFillModeForwards;
+    [ring.layer addAnimation:cornerAnimation forKey:@"cornerRadius"];
+    
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         ring.frame = CGRectMake(- NOTE_SIZE / 2,
+                                                 - NOTE_SIZE / 2,
+                                                 2 * NOTE_SIZE,
+                                                 2 * NOTE_SIZE);
+                         ring.alpha = 0.2;
+                     }
+                     completion:^(BOOL finished) {
+                         [ring removeFromSuperview];
+                     }];
 }
 
 - (void)playSoundEffectIsGood:(BOOL)isGood {
@@ -704,6 +749,7 @@
         diff > PERFECT_TIME ? _greatCount++ : _perfectCount++;
         _score += BASE_SCORE * [self comboRatio:_combo] * (diff > PERFECT_TIME ? GREAT_RATIO : PERFECT_RATIO);
         _combo ++;
+        _maxCombo = fmax(_maxCombo, _combo);
         
         if (_life < 10) {
             _lifeCombo++;

@@ -15,6 +15,7 @@
 #define KEY_RESULT_SCORE    @"score"
 #define KEY_RESULT_SCOREMAX @"scoreMax"
 #define KEY_RESULT_NAME     @"name"
+#define KEY_RESULT_COMBO    @"combo"
 
 typedef enum {
     ResultOptionTypeBack,

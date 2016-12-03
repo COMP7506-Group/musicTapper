@@ -29,6 +29,14 @@
 		0C3710711DF1CE7E00542B5A /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C37106F1DF1CE7E00542B5A /* UIView+Extension.m */; };
 		0C3710731DF1D1EE00542B5A /* songList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710721DF1D1EE00542B5A /* songList.plist */; };
 		0C3710771DF1DB6700542B5A /* 001.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710761DF1DB6700542B5A /* 001.png */; };
+		0C37107B1DF26FCE00542B5A /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C37107A1DF26FCE00542B5A /* score.png */; };
+		0C3710911DF2743400542B5A /* Rank_A.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C37108D1DF2743400542B5A /* Rank_A.png */; };
+		0C3710921DF2743400542B5A /* Rank_B.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C37108E1DF2743400542B5A /* Rank_B.png */; };
+		0C3710931DF2743400542B5A /* Rank_C.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C37108F1DF2743400542B5A /* Rank_C.png */; };
+		0C3710941DF2743400542B5A /* Rank_S.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710901DF2743400542B5A /* Rank_S.png */; };
+		0C3710981DF281DB00542B5A /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710951DF281DB00542B5A /* Back.png */; };
+		0C3710991DF281DB00542B5A /* Resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710961DF281DB00542B5A /* Resume.png */; };
+		0C37109A1DF281DB00542B5A /* Retry.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3710971DF281DB00542B5A /* Retry.png */; };
 		0C4BB0411DEC71EC00DA8291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0401DEC71EC00DA8291 /* main.m */; };
 		0C4BB0441DEC71EC00DA8291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0431DEC71EC00DA8291 /* AppDelegate.m */; };
 		0C4BB0471DEC71EC00DA8291 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BB0461DEC71EC00DA8291 /* MainViewController.m */; };
@@ -110,6 +118,14 @@
 		0C37106F1DF1CE7E00542B5A /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Extension.m"; path = "Vendor/tools/UIView+Extension.m"; sourceTree = "<group>"; };
 		0C3710721DF1D1EE00542B5A /* songList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = songList.plist; path = Resource/songList.plist; sourceTree = "<group>"; };
 		0C3710761DF1DB6700542B5A /* 001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 001.png; path = Resource/Image/001.png; sourceTree = "<group>"; };
+		0C37107A1DF26FCE00542B5A /* score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = score.png; path = Resource/Image/score.png; sourceTree = "<group>"; };
+		0C37108D1DF2743400542B5A /* Rank_A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Rank_A.png; path = Resource/Image/Rank_A.png; sourceTree = "<group>"; };
+		0C37108E1DF2743400542B5A /* Rank_B.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Rank_B.png; path = Resource/Image/Rank_B.png; sourceTree = "<group>"; };
+		0C37108F1DF2743400542B5A /* Rank_C.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Rank_C.png; path = Resource/Image/Rank_C.png; sourceTree = "<group>"; };
+		0C3710901DF2743400542B5A /* Rank_S.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Rank_S.png; path = Resource/Image/Rank_S.png; sourceTree = "<group>"; };
+		0C3710951DF281DB00542B5A /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Back.png; path = Resource/Image/Back.png; sourceTree = "<group>"; };
+		0C3710961DF281DB00542B5A /* Resume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Resume.png; path = Resource/Image/Resume.png; sourceTree = "<group>"; };
+		0C3710971DF281DB00542B5A /* Retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Retry.png; path = Resource/Image/Retry.png; sourceTree = "<group>"; };
 		0C4BB03C1DEC71EC00DA8291 /* MusicTapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4BB0401DEC71EC00DA8291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C4BB0421DEC71EC00DA8291 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -169,9 +185,17 @@
 		0C370FF01DF19C7400542B5A /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				0C3710951DF281DB00542B5A /* Back.png */,
+				0C3710961DF281DB00542B5A /* Resume.png */,
+				0C3710971DF281DB00542B5A /* Retry.png */,
+				0C37108D1DF2743400542B5A /* Rank_A.png */,
+				0C37108E1DF2743400542B5A /* Rank_B.png */,
+				0C37108F1DF2743400542B5A /* Rank_C.png */,
+				0C3710901DF2743400542B5A /* Rank_S.png */,
 				0C370FEC1DF19C6E00542B5A /* red_heart.png */,
 				0C370FED1DF19C6E00542B5A /* white_heart.png */,
 				0C3710761DF1DB6700542B5A /* 001.png */,
+				0C37107A1DF26FCE00542B5A /* score.png */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -484,15 +508,23 @@
 			files = (
 				0C3710731DF1D1EE00542B5A /* songList.plist in Resources */,
 				0C4BB0801DEC732200DA8291 /* bad.mp3 in Resources */,
+				0C3710941DF2743400542B5A /* Rank_S.png in Resources */,
 				0C370FEE1DF19C6E00542B5A /* red_heart.png in Resources */,
 				0C3710771DF1DB6700542B5A /* 001.png in Resources */,
 				0C4BB04F1DEC71EC00DA8291 /* LaunchScreen.storyboard in Resources */,
+				0C3710991DF281DB00542B5A /* Resume.png in Resources */,
+				0C3710931DF2743400542B5A /* Rank_C.png in Resources */,
 				0C3710661DF1CE0700542B5A /* MKJCollectionViewCell.xib in Resources */,
 				0C4BB04C1DEC71EC00DA8291 /* Assets.xcassets in Resources */,
+				0C37107B1DF26FCE00542B5A /* score.png in Resources */,
 				0C7577FC1DF054F1000EDA46 /* test.plist in Resources */,
+				0C3710911DF2743400542B5A /* Rank_A.png in Resources */,
+				0C3710981DF281DB00542B5A /* Back.png in Resources */,
 				0C4BB07D1DEC730900DA8291 /* 001.mp3 in Resources */,
 				0C7577FA1DF054DF000EDA46 /* test.mp3 in Resources */,
+				0C37109A1DF281DB00542B5A /* Retry.png in Resources */,
 				0C4BB04A1DEC71EC00DA8291 /* Main.storyboard in Resources */,
+				0C3710921DF2743400542B5A /* Rank_B.png in Resources */,
 				0C4BB0811DEC732200DA8291 /* good.mp3 in Resources */,
 				0C4BB0831DEC732E00DA8291 /* 001.plist in Resources */,
 				0C370FEF1DF19C6E00542B5A /* white_heart.png in Resources */,

@@ -22,6 +22,7 @@
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UIButton *easyButton;
 @property (nonatomic,strong) UIButton *hardButton;
+@property (nonatomic,strong) UIButton *autoButton;
 @property (nonatomic,strong) UIButton *closeButton;
 @property (nonatomic,assign) NSInteger selectedIndex; // 选择了哪个
 @end
@@ -68,6 +69,7 @@ static NSString *indentify = @"MKJCollectionViewCell";
     [self.underBackView addSubview:self.nameLabel];
     [self.underBackView addSubview:self.easyButton];
     [self.underBackView addSubview:self.hardButton];
+    [self.underBackView addSubview:self.autoButton];
     [self.underBackView addSubview:self.closeButton];
     [self.closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -79,17 +81,24 @@ static NSString *indentify = @"MKJCollectionViewCell";
     
     [self.easyButton mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.centerX.equalTo(self.underBackView).with.offset(- 70 * SCALE);
+        make.centerX.equalTo(self.underBackView).with.offset(- 130 * SCALE);
         make.bottom.equalTo(self.underBackView.mas_bottom).with.offset(-10 * SCALE);
-        make.size.mas_equalTo(CGSizeMake(100 * SCALE, 30 * SCALE));
+        make.size.mas_equalTo(CGSizeMake(80 * SCALE, 30 * SCALE));
         
     }];
     
     [self.hardButton mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerX.equalTo(self.underBackView).with.offset(70 * SCALE);
+        make.centerX.equalTo(self.underBackView);
         make.bottom.equalTo(self.underBackView.mas_bottom).with.offset(-10 * SCALE);
-        make.size.mas_equalTo(CGSizeMake(100 * SCALE, 30 * SCALE));
+        make.size.mas_equalTo(CGSizeMake(80 * SCALE, 30 * SCALE));
+    }];
+    
+    [self.autoButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(self.underBackView).with.offset(130 * SCALE);
+        make.bottom.equalTo(self.underBackView.mas_bottom).with.offset(-10 * SCALE);
+        make.size.mas_equalTo(CGSizeMake(80 * SCALE, 30 * SCALE));
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,7 +147,6 @@ static NSString *indentify = @"MKJCollectionViewCell";
     }
 }
 
-
 #pragma mark - 懒加载
 - (UIView *)underBackView
 {
@@ -167,6 +175,7 @@ static NSString *indentify = @"MKJCollectionViewCell";
         _nameLabel.layer.cornerRadius = 5.0f * SCALE;
         _nameLabel.layer.borderColor = [UIColor blackColor].CGColor;
         _nameLabel.layer.borderWidth = 2.0f * SCALE;
+        _nameLabel.clipsToBounds = YES;
     }
     return _nameLabel;
 }
@@ -179,7 +188,7 @@ static NSString *indentify = @"MKJCollectionViewCell";
         [_easyButton setTitle:@"Easy" forState:UIControlStateNormal];
         [_easyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_easyButton addTarget:self action:@selector(chooseDone:) forControlEvents:UIControlEventTouchUpInside];
-        _easyButton.layer.cornerRadius = 20.0f * SCALE;
+        _easyButton.layer.cornerRadius = 8.0f * SCALE;
         _easyButton.layer.borderWidth = 2.0f * SCALE;
         _easyButton.layer.borderColor = [UIColor whiteColor].CGColor;
     }
@@ -194,17 +203,32 @@ static NSString *indentify = @"MKJCollectionViewCell";
         [_hardButton setTitle:@"Hard" forState:UIControlStateNormal];
         [_hardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_hardButton addTarget:self action:@selector(chooseDone:) forControlEvents:UIControlEventTouchUpInside];
-        _hardButton.layer.cornerRadius = 20.0f * SCALE;
+        _hardButton.layer.cornerRadius = 8.0f * SCALE;
         _hardButton.layer.borderWidth = 2.0f * SCALE;
         _hardButton.layer.borderColor = [UIColor whiteColor].CGColor;
     }
     return _hardButton;
 }
 
+- (UIButton *)autoButton
+{
+    if (_autoButton == nil) {
+        _autoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _autoButton.backgroundColor = [UIColor blackColor];
+        [_autoButton setTitle:@"Auto" forState:UIControlStateNormal];
+        [_autoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_autoButton addTarget:self action:@selector(chooseDone:) forControlEvents:UIControlEventTouchUpInside];
+        _autoButton.layer.cornerRadius = 8.0f * SCALE;
+        _autoButton.layer.borderWidth = 2.0f * SCALE;
+        _autoButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+    return _autoButton;
+}
+
 - (void)chooseDone:(UIButton *)button
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectedItem:withType:)]) {
-        [self.delegate selectedItem:self.dataSource[_selectedIndex] withType:(button == _easyButton ? 0 : 1)];
+        [self.delegate selectedItem:self.dataSource[_selectedIndex] withType:(button == _easyButton ? 0 : (button == _hardButton ? 1 : 2))];
     }
 }
 
@@ -264,7 +288,6 @@ static NSString *indentify = @"MKJCollectionViewCell";
     [self labelText:index];
     _selectedIndex = index;
 }
-
 
 // 第一次加载的时候刷新collectionView
 - (void)setDataSource:(NSArray *)dataSource

@@ -89,7 +89,7 @@
 
 - (void)selectedItem:(MKJItemModel *)item withType:(int)type {
     
-    TypePlayMode mode = (type == 0 ? TypePlayModeEasy : TypePlayModeHard);
+    TypePlayMode mode = (type == 0 ? TypePlayModeEasy : (type == 1 ? TypePlayModeHard : TypePlayModeAuto));
     PlayViewController * controller = [[PlayViewController alloc] initWithPlayMod:mode songID:item.imageName];
     [self presentViewController:controller animated:YES completion:NULL];
 }
@@ -116,11 +116,11 @@
         NSString * plistPath = [[NSBundle mainBundle] pathForResource:@"songList" ofType:@"plist"];
         NSArray * songs = [[NSArray alloc] initWithContentsOfFile:plistPath];
         
-        for (NSInteger i = 0; i < 3; i ++) {
+        for (int i = 0; i < 10; i ++) {
             NSDictionary * dic = [songs objectAtIndex:(i % songs.count)];
             MKJItemModel *model = [[MKJItemModel alloc] init];
             model.imageName = [dic objectForKey:@"filename"];
-            model.titleName = [dic objectForKey:@"name"];
+            model.titleName = [NSString stringWithFormat:@"Song No.%d", (i + 1)];
             [_dataSource addObject:model];
         }
     }
