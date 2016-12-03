@@ -109,7 +109,7 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSNumber * offset = [defaults objectForKey:KEY_OFFSET];
     self.offset = (offset && _mode != TypePlayModeAuto) ? [offset doubleValue] : 0;
-    NSString * playerName = [[defaults objectForKey:KEY_PLAYER_NAME] stringValue];
+    NSString * playerName = [defaults objectForKey:KEY_PLAYER_NAME];
     self.playerName = (playerName && _mode != TypePlayModeAuto) ? [NSString stringWithString:playerName] : @"Noname";
     
     if (!_buttons) {
@@ -307,7 +307,6 @@
     
     [self reset];
     
-    
     float volume = [[defaults objectForKey:KEY_VOLUME] floatValue];
     [_myBackMusic setVolume:0.6 * volume];
     _myBackMusic.numberOfLoops = 0;
@@ -501,6 +500,8 @@
         }
     }
     
+    if (_life == 0) return;
+    
     float btnWidth = 80 * SCALE;
     float btnHeight = 44 * SCALE;
     float padding = 50 * SCALE;
@@ -684,6 +685,7 @@
     
     if (_life == 0) {
         [self pause];
+        [self audioPlayerDidFinishPlaying:_myBackMusic successfully:YES];
     }
     
     _combo = 0;
@@ -741,6 +743,7 @@
         
         if (_life == 0) {
             [self pause];
+            [self audioPlayerDidFinishPlaying:_myBackMusic successfully:YES];
         }
     }
     else {
