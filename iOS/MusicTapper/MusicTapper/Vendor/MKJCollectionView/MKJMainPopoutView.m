@@ -236,8 +236,8 @@ static NSString *indentify = @"MKJCollectionViewCell";
 {
     if (_closeButton == nil) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _closeButton.backgroundColor = [UIColor greenColor];
-        [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
+        _closeButton.backgroundColor = [UIColor whiteColor];
+        [_closeButton setImage:[UIImage imageNamed:@"Close"] forState:UIControlStateNormal];
         [_closeButton addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _closeButton;
@@ -272,7 +272,7 @@ static NSString *indentify = @"MKJCollectionViewCell";
                                                                              self.underBackView.bounds.size.width,
                                                                              self.underBackView.bounds.size.height * 0.65)
                                              collectionViewLayout:flow];
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"listBG"]];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.showsHorizontalScrollIndicator = NO;

@@ -34,7 +34,9 @@
     self = [super init];
     if (self) {
         self.result = result;
-        self.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+        
+        UIImageView * backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultBG"]];
+        [self addSubview:backgroundView];
         
         float left = 70 * SCALE;
         float top = 100 * SCALE;

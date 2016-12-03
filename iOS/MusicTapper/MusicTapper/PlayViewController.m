@@ -85,9 +85,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
+    UIImageView * backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"playBG"]];
+    backgroundView.frame = self.view.frame;
+    [self.view addSubview:backgroundView];
     
     if (_mode == TypePlayModeTest) _songID = @"test";
     
@@ -143,8 +143,7 @@
     
     if (!_pauseBtn) {
         UIButton * pauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        pauseBtn.layer.borderWidth = 3;
-        pauseBtn.layer.borderColor = [UIColor blueColor].CGColor;
+        [pauseBtn setImage:[UIImage imageNamed:@"Pause"] forState:UIControlStateNormal];
         pauseBtn.frame = CGRectMake(self.view.frame.size.width - 70 * SCALE,
                                     20 * SCALE,
                                     50 * SCALE,
@@ -203,7 +202,7 @@
                                                                  400 * SCALE,
                                                                  3 * SCALE)];
         view.layer.cornerRadius = view.frame.size.height / 2;
-        view.backgroundColor = [UIColor yellowColor];
+        view.backgroundColor = RGB(36, 39, 48, 1);
         [self.view addSubview:view];
         self.timeBarBG = view;
     }
@@ -214,7 +213,7 @@
                                                                  0,
                                                                  3 * SCALE)];
         view.layer.cornerRadius = view.frame.size.height / 2;
-        view.backgroundColor = [UIColor greenColor];
+        view.backgroundColor = RGB(50, 159, 204, 1);
         [self.view addSubview:view];
         self.timeBar = view;
     }
@@ -280,29 +279,29 @@
     }
     
     if (!_backBtn) {
-        _backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _backBtn.layer.borderWidth = 3.0 * SCALE;
-        _backBtn.layer.borderColor = [UIColor redColor].CGColor;
+        _backBtn.layer.borderColor = [UIColor blackColor].CGColor;
         _backBtn.layer.cornerRadius = 8 * SCALE;
-        [_backBtn setTitle:@"Back" forState:UIControlStateNormal];
+        [_backBtn setImage:[UIImage imageNamed:@"Back"] forState:UIControlStateNormal];
         [_backBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     if (!_resumeBtn) {
-        _resumeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _resumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _resumeBtn.layer.borderWidth = 3.0 * SCALE;
-        _resumeBtn.layer.borderColor = [UIColor redColor].CGColor;
+        _resumeBtn.layer.borderColor = [UIColor blackColor].CGColor;
         _resumeBtn.layer.cornerRadius = 8 * SCALE;
-        [_resumeBtn setTitle:@"Resume" forState:UIControlStateNormal];
+        [_resumeBtn setImage:[UIImage imageNamed:@"Resume"] forState:UIControlStateNormal];
         [_resumeBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     if (!_retryBtn) {
-        _retryBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _retryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _retryBtn.layer.borderWidth = 3.0 * SCALE;
-        _retryBtn.layer.borderColor = [UIColor redColor].CGColor;
+        _retryBtn.layer.borderColor = [UIColor blackColor].CGColor;
         _retryBtn.layer.cornerRadius = 8 * SCALE;
-        [_retryBtn setTitle:@"Retry" forState:UIControlStateNormal];
+        [_retryBtn setImage:[UIImage imageNamed:@"Retry"] forState:UIControlStateNormal];
         [_retryBtn addTarget:self action:@selector(handlePauseSelect:) forControlEvents:UIControlEventTouchUpInside];
     }
     
@@ -689,25 +688,22 @@
     _lifeCombo = 0;
     [self updateCombo];
     
-    UILabel * label = [[UILabel alloc] init];
-    label.font = [UIFont systemFontOfSize:18];
-    label.text = @"Miss!";
-    [label sizeToFit];
-    label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"miss"]];
+    [imageView sizeToFit];
+    imageView.frame = CGRectMake((self.view.frame.size.width - imageView.frame.size.width) / 2,
                              180 * SCALE,
-                             label.frame.size.width,
-                             label.frame.size.height);
+                             imageView.frame.size.width,
+                             imageView.frame.size.height);
+    [self.view addSubview:imageView];
     
-    [self.view addSubview:label];
-    
-    [UIView animateWithDuration:0.2
+    [UIView animateWithDuration:0.5
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         label.alpha = 0;
+                         imageView.alpha = 0;
                      }
                      completion:^(BOOL finished) {
-                         [label removeFromSuperview];
+                         [imageView removeFromSuperview];
                      }];
 }
 
@@ -766,25 +762,23 @@
     [self updateScore];
     [self updateCombo];
     
-    UILabel * label = [[UILabel alloc] init];
-    label.font = [UIFont systemFontOfSize:18];
-    label.text = (diff > GREAT_TIME) ? @"Good!" : (diff > PERFECT_TIME ? @"Great!" : @"Perfect!");
-    [label sizeToFit];
-    label.frame = CGRectMake((self.view.frame.size.width - label.frame.size.width) / 2,
-                             180 * SCALE,
-                             label.frame.size.width,
-                             label.frame.size.height);
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:(diff > GREAT_TIME) ? @"good" : (diff > PERFECT_TIME ? @"great" : @"perfect")]];
+    [imageView sizeToFit];
+    imageView.frame = CGRectMake((self.view.frame.size.width - imageView.frame.size.width) / 2,
+                                 180 * SCALE,
+                                 imageView.frame.size.width,
+                                 imageView.frame.size.height);
     
-    [self.view addSubview:label];
+    [self.view addSubview:imageView];
     
-    [UIView animateWithDuration:0.2
+    [UIView animateWithDuration:0.5
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         label.alpha = 0;
+                         imageView.alpha = 0;
                      }
                      completion:^(BOOL finished) {
-                         [label removeFromSuperview];
+                         [imageView removeFromSuperview];
                      }];
 }
 

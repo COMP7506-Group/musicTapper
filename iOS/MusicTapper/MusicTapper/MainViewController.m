@@ -17,6 +17,11 @@
 
 @property (nonatomic, strong) MKJMainPopoutView * popView;
 @property (nonatomic, strong) NSMutableArray * dataSource;
+@property (nonatomic, strong) UIImageView * logoView;
+@property (nonatomic, strong) UIButton * playButton;
+@property (nonatomic, strong) UIButton * settingButton;
+@property (nonatomic, strong) UIButton * aboutButton;
+@property (nonatomic, strong) UILabel * playerNameLabel;
 
 @end
 
@@ -25,20 +30,69 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    float width = self.view.frame.size.width;
+    float height = self.view.frame.size.height;
+    
+    UIImageView * backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainBG"]];
+    [backgroundView sizeToFit];
+    [self.view addSubview:backgroundView];
+    
+    _logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    _logoView.frame = CGRectMake((width - 120 * SCALE) / 2,
+                                 40 * SCALE,
+                                 120 * SCALE,
+                                 80 * SCALE);
+    [self.view addSubview:_logoView];
     
     
+    _playerNameLabel = [[UILabel alloc] init];
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString * playerName = [[defaults objectForKey:KEY_PLAYER_NAME] stringValue];
+    _playerNameLabel.text = [NSString stringWithFormat:@"Hello, %@!", (playerName ? playerName : @"Player")];
+    _playerNameLabel.font = [UIFont systemFontOfSize:20];
+    [_playerNameLabel sizeToFit];
+    _playerNameLabel.frame = CGRectMake((width - _playerNameLabel.frame.size.width) / 2,
+                                        CGRectGetMaxY(_logoView.frame),
+                                        _playerNameLabel.frame.size.width,
+                                        _playerNameLabel.frame.size.height);
+    [self.view addSubview:_playerNameLabel];
     
+    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_playButton setTitle:@"Play" forState:UIControlStateNormal];
+    _playButton.layer.borderWidth = 3 * SCALE;
+    _playButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _playButton.layer.cornerRadius = 5 * SCALE;
+    [_playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
+    _playButton.frame = CGRectMake((width - 100 * SCALE) / 2,
+                                   CGRectGetMaxY(_playerNameLabel.frame) + 10 * SCALE,
+                                   100 * SCALE,
+                                   44 * SCALE);
+    [self.view addSubview:_playButton];
     
-    UIButton * testBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [testBtn setTitle:@"push" forState:UIControlStateNormal];
-    [testBtn addTarget:self action:@selector(push) forControlEvents:UIControlEventTouchUpInside];
+    _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_settingButton setTitle:@"Setting" forState:UIControlStateNormal];
+    _settingButton.layer.borderWidth = 3 * SCALE;
+    _settingButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _settingButton.layer.cornerRadius = 5 * SCALE;
+    [_settingButton addTarget:self action:@selector(setting) forControlEvents:UIControlEventTouchUpInside];
+    _settingButton.frame = CGRectMake((width - 100 * SCALE) / 2,
+                                   CGRectGetMaxY(_playButton.frame) + 10 * SCALE,
+                                   100 * SCALE,
+                                   44 * SCALE);
+    [self.view addSubview:_settingButton];
     
-    CGRect frame = self.view.frame;
-    testBtn.frame = CGRectMake((frame.size.width - 100 * SCALE) / 2,
-                               (frame.size.height - 44 * SCALE) / 2,
-                               100 * SCALE,
-                               44 * SCALE);
-    [self.view addSubview:testBtn];
+    _aboutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_aboutButton setTitle:@"About" forState:UIControlStateNormal];
+    _aboutButton.layer.borderWidth = 3 * SCALE;
+    _aboutButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _aboutButton.layer.cornerRadius = 5 * SCALE;
+    [_aboutButton addTarget:self action:@selector(about) forControlEvents:UIControlEventTouchUpInside];
+    _aboutButton.frame = CGRectMake((width - 100 * SCALE) / 2,
+                                   CGRectGetMaxY(_settingButton.frame) + 10 * SCALE,
+                                   100 * SCALE,
+                                   44 * SCALE);
+    [self.view addSubview:_aboutButton];
+    
     
 //    [self convertFile];
 }
@@ -81,8 +135,16 @@
 
 #pragma mark - Action methods
 
-- (void)push {
+- (void)play {
     [self.popView showInSuperView:self.view];
+}
+
+- (void)setting {
+    
+}
+
+- (void)about {
+    
 }
 
 #pragma mark - MKJMainPopoutViewDelegate
