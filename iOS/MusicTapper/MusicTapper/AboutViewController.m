@@ -56,7 +56,7 @@
     [self.view addSubview:_titleLbael];
     
     _textView = [[UITextView alloc] init];
-    _textView.font = [UIFont systemFontOfSize:18];
+    _textView.font = [UIFont systemFontOfSize:14];
     _textView.textAlignment = NSTextAlignmentCenter;
     [_textView setEditable:NO];
     _textView.backgroundColor = [UIColor clearColor];
@@ -64,7 +64,7 @@
                                  CGRectGetMaxY(_titleLbael.frame),
                                  300 * SCALE,
                                  300 * SCALE);
-    _textView.text = @"Please write something here to introduce this app.";
+    _textView.text = @"Rhythm game in the genre requires players to press buttons in a sequence dictated on the screen. Doing so causes the game's protagonist or avatar to play their instrument correctly, which increases the player's score. Landscape screen are applied into our application, with 4 buttons in the play board.";
     [self.view addSubview:_textView];
     
     UIView * groupView = [[UIView alloc] init];
