@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@drawable/main"
+    tools:context="com.example.ylin.myapplication.MainActivity">
+
+    <Button
+        android:text="auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startbtn"
+        android:layout_alignStart="@+id/startbtn"
+        android:layout_marginTop="34dp"
+        android:id="@+id/rankbtn" />
+
+    <Button
+        android:text="rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rankbtn"
+        android:layout_alignStart="@+id/rankbtn"
+        android:layout_marginTop="48dp"
+        android:id="@+id/viewrank" />
+
+    <Button
+        android:text="game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="185dp"
+        android:id="@+id/startbtn"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/icon"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/startbtn"
+        android:layout_marginTop="55dp" />
+</RelativeLayout>

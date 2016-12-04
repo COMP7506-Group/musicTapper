@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/reba"
+    >
+
+
+    <TextView
+        android:text="Great"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+
+        android:id="@+id/great"
+        android:layout_below="@+id/perf"
+        android:layout_alignStart="@+id/perf"
+        android:layout_alignEnd="@+id/perf" />
+
+    <TextView
+        android:text="Perfect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/perf"
+        android:textColor="#FFFFFF"
+
+        android:layout_below="@+id/maxcom"
+        android:layout_alignStart="@+id/maxcom"
+        android:layout_marginTop="22dp"
+        android:layout_alignEnd="@+id/maxcom" />
+
+    <TextView
+        android:text="Miss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+
+        android:id="@+id/miss"
+        android:layout_below="@+id/great"
+        android:layout_alignStart="@+id/great"
+        android:layout_alignEnd="@+id/great" />
+
+    <Button
+        android:text="Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/gamebtn"
+        android:layout_alignEnd="@+id/editname"
+        android:id="@+id/back" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="please enter your name"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:ems="10"
+        android:layout_marginStart="49dp"
+        android:id="@+id/editname"
+        android:layout_above="@+id/gamebtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="25dp" />
+
+    <Button
+        android:text="Retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="54dp"
+        android:id="@+id/gamebtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/editname" />
+
+    <TextView
+        android:text="Maxcombo"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="94dp"
+        android:textSize="20dp"
+        android:id="@+id/maxcom"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editname" />
+
+    <TextView
+        android:text="Score:"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/score"
+        android:textSize="30dp"
+        android:layout_below="@+id/miss"
+        android:layout_alignStart="@+id/editname"
+        android:layout_marginTop="34dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/arank"
+        android:id="@+id/levelview"
+        android:layout_alignTop="@+id/maxcom"
+        android:layout_alignStart="@+id/back"
+        android:layout_marginStart="22dp" />
+</RelativeLayout>

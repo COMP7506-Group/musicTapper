@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:nestedScrollingEnabled="false"
+    android:scaleType="fitXY"
+    android:background="@drawable/bg1"
+    android:id="@+id/rv">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/p1"
+        android:layout_alignParentTop="true"
+        >
+        <com.example.ylin.myapplication.SpringProgressView
+        android:id="@+id/progressview"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+
+        <Button
+            android:layout_height="wrap_content"
+            android:id="@+id/pause"
+            android:layout_below="@+id/progressview"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/play"
+            android:layout_width="50dp" />
+
+        <TextView
+            android:text="Time"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+
+            android:id="@+id/timetxt"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="100dp" />
+
+        <TextView
+            android:text="Score"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:id="@+id/scoretxt"
+            android:layout_width="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/timetxt"
+            android:layout_marginEnd="22dp" />
+
+    </RelativeLayout>
+
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:id="@+id/p3"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/buttons"
+        android:layout_width="85dp"
+        android:layout_alignTop="@+id/p2"
+        android:layout_toStartOf="@+id/p4" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#aa000000"
+        android:id="@+id/view"
+        android:layout_marginBottom="18dp"
+        android:layout_above="@+id/p1"
+        android:layout_alignStart="@+id/p1" />
+
+    <ImageButton
+        android:id="@+id/p2"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/buttons"
+        android:layout_width="85dp"
+        android:layout_below="@+id/view"
+        android:layout_toStartOf="@+id/p3" />
+
+    <ImageButton
+        android:layout_height="50dp"
+        android:text="1"
+        android:id="@+id/p1"
+        android:layout_marginLeft="3dp"
+        android:background="@drawable/buttons"
+        android:visibility="visible"
+        android:layout_width="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/p2" />
+
+    <TextView
+        android:text=""
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/textView3"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="150dp" />
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/p4"
+        android:background="@drawable/buttons"
+        android:layout_width="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text=""
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/textView"
+        android:layout_width="150dp"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
